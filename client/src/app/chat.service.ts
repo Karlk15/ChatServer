@@ -40,7 +40,7 @@ export class ChatService {
 
   joinRoom(roomInfo: any): Observable<boolean> {
     let observable = new Observable(observer => {
-      this.socket.emit("joinroom", roomInfo, (succeeded, reason) => {
+      this.socket.emit('joinroom', roomInfo, (succeeded, reason) => {
         observer.next(succeeded);
       });
     });
@@ -49,16 +49,16 @@ export class ChatService {
 
   leaveRoom(roomName: string) {
     let obervable = new Observable(observer => {
-      this.socket.emit("partroom", roomName);
+      this.socket.emit('partroom', roomName);
     });
     return obervable;
   }
 
   getAllConnectedUsers() {
     let obervable = new Observable(observer => {
-      this.socket.emit("users");
+      this.socket.emit('users');
 
-      this.socket.on("userlist", (lst) => {
+      this.socket.on('userlist', (lst) => {
         let strArr: string[] = [];
         for (var x in lst) {
           strArr.push(x);

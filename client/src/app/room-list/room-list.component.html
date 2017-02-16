@@ -1,6 +1,6 @@
 
 <ul>
-  <li *ngFor="let user of users">
+  <li *ngFor='let user of users'>
     {{user}}
   </li>
 </ul>
@@ -8,11 +8,11 @@
 <br>
 
 <ul>
-  <li *ngFor="let room of rooms">
-    <button (click)="onJoinRoom(room)">{{room}}</button>
+  <li *ngFor='let room of rooms'>
+    <button (click)='onJoinRoom(room)'>{{room}}</button>
   </li>
 </ul>
 
-<div [hidden]="!joinFailed">
+<div [hidden]='!joinFailed'>
   Sorry, unable to join room because {{joinFailReason}}
 </div>

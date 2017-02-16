@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatService } from "../chat.service";
-import { Router } from "@angular/router";
+import { ChatService } from '../chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room-list',
@@ -27,14 +27,14 @@ export class RoomListComponent implements OnInit {
   }
 
   onJoinRoom(roomName: string) {
-    this.chatService.joinRoom({room: roomName, pass: ""}).subscribe(succeeded =>{
+    this.chatService.joinRoom({ room: roomName, pass: '' }).subscribe(succeeded => {
       if (succeeded === true) {
         this.joinFailed = false;
-        this.router.navigate(["/room", roomName]);
+        this.router.navigate(['/room', roomName]);
       }
       else {
         this.joinFailed = true;
-        this.joinFailReason = "placeholder";
+        this.joinFailReason = 'placeholder';
       }
     });
   }

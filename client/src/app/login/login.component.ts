@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.chatService.login(this.userName).subscribe(succeeded => {
       this.loginFailed = !succeeded;
       if (succeeded === true) {
-        this.router.navigate(["/rooms"])
+        this.router.navigate(['/rooms'])
       }
     });
   }

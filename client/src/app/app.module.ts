@@ -31,9 +31,9 @@ import { ChatService } from './chat.service';
         path: 'rooms',
         component: RoomListComponent
       }, {
-          path: "room/:roomName",
-          component: RoomComponent
-        }])
+        path: 'room/:roomName',
+        component: RoomComponent
+      }])
   ],
   providers: [ChatService],
   bootstrap: [AppComponent]
