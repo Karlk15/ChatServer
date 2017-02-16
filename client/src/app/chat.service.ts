@@ -10,18 +10,18 @@ export class ChatService {
   constructor() {
     this.socket = io("http://localhost:8080");
     this.socket.on("connect", function() {
-      console.log("connect")
     });
   }
+
   login(userName: string): Observable<boolean> {
     let observable = new Observable(observer => {
       this.socket.emit("adduser", userName, succeeded => {
-        console.log("Reply received");
         observer.next(succeeded);
       });
     });
     return observable;
   }
+
   getRoomList(): Observable<string[]> {
     let obs = new Observable(observer => {
       this.socket.emit("rooms");
@@ -31,8 +31,41 @@ export class ChatService {
           strArr.push(x);
         }
         observer.next(strArr);
-      })
-    })
+      });
+    });
     return obs;
   }
+
+  joinRoom(roomInfo: any): Observable<boolean> {
+    let observable = new Observable(observer => {
+      this.socket.emit("joinroom", roomInfo, (succeeded,reason) => {
+        observer.next(succeeded);
+      });
+    });
+    return observable;
+  }
+
+  leaveRoom(roomName: string){
+    let obervable = new Observable(observer => {
+      this.socket.emit("partroom", roomName);
+    });
+    return obervable;
+  }
+
+  getAllConnectedUsers(){
+    let obervable = new Observable(observer => {
+      this.socket.emit("users");
+
+      this.socket.on("userlist", (lst) => {
+        let strArr: string[] = [];
+        for (var x in lst) {
+          strArr.push(x);
+        }
+        observer.next(strArr);
+      });
+
+    });
+    return obervable;
+  }
+
 }
