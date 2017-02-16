@@ -30,8 +30,9 @@ export class ChatService {
       this.socket.on('roomlist', (lst) => {
         const strArr: string[] = [];
         for (const x in lst) {
-          strArr.push(x);
-          console.log(lst);
+            if (lst.hasOwnProperty(x)) {
+                strArr.push(x);
+            }
         }
         observer.next(strArr);
       });
@@ -62,7 +63,9 @@ export class ChatService {
       this.socket.on('userlist', (lst) => {
         const strArr: string[] = [];
         for (const x in lst) {
-          strArr.push(x);
+            if (lst.hasOwnProperty(x)) {
+                strArr.push(x);
+            }
         }
         observer.next(strArr);
       });
