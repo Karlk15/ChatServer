@@ -15,7 +15,7 @@ export class ChatService {
   }
 
   login(userName: string): Observable<boolean> {
-    let observable = new Observable(observer => {
+    const observable = new Observable(observer => {
       this.socket.emit('adduser', userName, succeeded => {
         console.log('Reply received');
         observer.next(succeeded);
@@ -25,11 +25,11 @@ export class ChatService {
   }
 
   getRoomList(): Observable<string[]> {
-    let obs = new Observable(observer => {
+    const obs = new Observable(observer => {
       this.socket.emit('rooms');
       this.socket.on('roomlist', (lst) => {
-        let strArr: string[] = [];
-        for (var x in lst) {
+        const strArr: string[] = [];
+        for (const x in lst) {
           strArr.push(x);
         }
         observer.next(strArr);
@@ -39,7 +39,7 @@ export class ChatService {
   }
 
   joinRoom(roomInfo: any): Observable<boolean> {
-    let observable = new Observable(observer => {
+    const observable = new Observable(observer => {
       this.socket.emit('joinroom', roomInfo, (succeeded, reason) => {
         observer.next(succeeded);
       });
@@ -48,7 +48,7 @@ export class ChatService {
   }
 
   leaveRoom(roomName: string) {
-    let obervable = new Observable(observer => {
+    const obervable = new Observable(observer => {
       this.socket.emit('partroom', roomName);
     });
     return obervable;
@@ -59,8 +59,8 @@ export class ChatService {
       this.socket.emit('users');
 
       this.socket.on('userlist', (lst) => {
-        let strArr: string[] = [];
-        for (var x in lst) {
+        const strArr: string[] = [];
+        for (const x in lst) {
           strArr.push(x);
         }
         observer.next(strArr);

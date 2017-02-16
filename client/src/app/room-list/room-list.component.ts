@@ -31,8 +31,7 @@ export class RoomListComponent implements OnInit {
       if (succeeded === true) {
         this.joinFailed = false;
         this.router.navigate(['/room', roomName]);
-      }
-      else {
+      } else {
         this.joinFailed = true;
         this.joinFailReason = 'placeholder';
       }
