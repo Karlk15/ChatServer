@@ -31,6 +31,7 @@ export class ChatService {
         const strArr: string[] = [];
         for (const x in lst) {
           strArr.push(x);
+          console.log(lst);
         }
         observer.next(strArr);
       });
@@ -48,14 +49,14 @@ export class ChatService {
   }
 
   leaveRoom(roomName: string) {
-    const obervable = new Observable(observer => {
+    const observable = new Observable(observer => {
       this.socket.emit('partroom', roomName);
     });
-    return obervable;
+    return observable;
   }
 
   getAllConnectedUsers() {
-    let obervable = new Observable(observer => {
+    const observable = new Observable(observer => {
       this.socket.emit('users');
 
       this.socket.on('userlist', (lst) => {
@@ -67,7 +68,7 @@ export class ChatService {
       });
 
     });
-    return obervable;
+    return observable;
   }
 
 }
