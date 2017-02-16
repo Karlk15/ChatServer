@@ -4,6 +4,11 @@ module.exports = function ( grunt ) {
    tslint: {
      src: ['src/**/*.ts'],
      gruntfile: ['Gruntfile.js'],
+     options: {
+       configuration: "tslint.json",
+       force: true,
+       fix: false
+     },
 
     }
   };
