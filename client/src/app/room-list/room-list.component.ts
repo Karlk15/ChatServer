@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 })
 export class RoomListComponent implements OnInit {
 
-  constructor(private chatService: ChatService, private router: Router) { }
-
   rooms: string[];
   users: string[];
   joinFailReason: string;
-  joinFailed: boolean = false;
+  joinFailed = false;
+
+  constructor(private chatService: ChatService, private router: Router) { }
 
   ngOnInit() {
     this.chatService.getRoomList().subscribe(lst => {

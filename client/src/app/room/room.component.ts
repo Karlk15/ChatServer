@@ -8,12 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
-
+  roomName: string;
   constructor(private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute) { }
-
-  roomName: string;
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
