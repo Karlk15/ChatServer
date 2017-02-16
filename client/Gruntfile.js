@@ -2,7 +2,7 @@ module.exports = function ( grunt ) {
  grunt.loadNpmTasks('grunt-tslint');
  var taskConfig = {
    tslint: {
-     src: ['src/**/*ts'],
+     src: ['src/**/*.ts'],
      gruntfile: ['Gruntfile.js'],
      options: {
         'esversion': 6,
