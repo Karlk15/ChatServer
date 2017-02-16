@@ -16,3 +16,6 @@
 <div [hidden]='!joinFailed'>
   Sorry, unable to join room because {{joinFailReason}}
 </div>
+
+<input [(ngModel)]='newRoomName' />
+<button (click)='onNewRoom()'>Create new room</button>

@@ -49,6 +49,18 @@ export class ChatService {
     return observable;
   }
 
+  addRoom(roomName: string) {
+      // TODO validate roomName
+      const param = {
+        room: roomName
+      };
+      this.socket.emit('joinroom', param, function(a, b) {
+            if (!a) {
+                console.log('addRoom failed');
+            }
+      });
+  }
+
   leaveRoom(roomName: string) {
     const observable = new Observable(observer => {
       this.socket.emit('partroom', roomName);

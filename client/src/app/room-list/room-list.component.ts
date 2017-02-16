@@ -11,6 +11,7 @@ export class RoomListComponent implements OnInit {
 
   rooms: string[];
   users: string[];
+  newRoomName: string;
   joinFailReason: string;
   joinFailed = false;
 
@@ -36,6 +37,13 @@ export class RoomListComponent implements OnInit {
         this.joinFailReason = 'placeholder';
       }
     });
+  }
+
+  onNewRoom() {
+    if (this.newRoomName.length < 1) {
+        return;
+    }
+    this.chatService.addRoom(this.newRoomName);
   }
 
 }
