@@ -1,8 +1,8 @@
 module.exports = function ( grunt ) {
- grunt.loadNpmTasks('grunt-contrib-jshint');
+ grunt.loadNpmTasks('grunt-tslint');
  var taskConfig = {
-   jshint: {
-     src: ['src/*.js','../server/*js','src/*ts'],
+   tslint: {
+     src: ['src/**/*ts'],
      gruntfile: ['Gruntfile.js'],
      options: {
         'esversion': 6,
@@ -28,5 +28,5 @@ module.exports = function ( grunt ) {
    }
  };
  grunt.initConfig(taskConfig);
- grunt.registerTask('default', ['jshint']);
+ grunt.registerTask('default', ['tslint']);
 };
