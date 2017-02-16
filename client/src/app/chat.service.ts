@@ -49,16 +49,17 @@ export class ChatService {
     return observable;
   }
 
-  addRoom(roomName: string) {
-      // TODO validate roomName
-      const param = {
-        room: roomName
-      };
-      this.socket.emit('joinroom', param, function(a, b) {
-            if (!a) {
-                console.log('addRoom failed');
-            }
+  addRoom(roomName: string): Observable<boolean> {
+      const observable = new Observable(observer => {
+          // TODO validate roomName
+          const param = {
+            room: roomName
+          };
+          this.socket.emit('joinroom', param, function(a, b) {
+              observer.next(a);
+          });
       });
+      return observable;
   }
 
   leaveRoom(roomName: string) {

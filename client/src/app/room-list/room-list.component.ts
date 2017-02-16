@@ -41,9 +41,14 @@ export class RoomListComponent implements OnInit {
 
   onNewRoom() {
     if (this.newRoomName.length < 1) {
+        console.log('room name invalid');
         return;
     }
-    this.chatService.addRoom(this.newRoomName);
+    this.chatService.addRoom(this.newRoomName).subscribe(succeeded => {
+        if (succeeded === true) {
+            this.router.navigate(['room', this.newRoomName]);
+        }
+    });
   }
 
 }
