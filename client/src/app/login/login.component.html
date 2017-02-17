@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-
-<input [(ngModel)]="userName" />
-<button (click)="onLogin()">Login</button>
-<div [hidden]="!loginFailed">
-  Sorry, but this username is already taken
+<div class="container">
+  <input [(ngModel)]="userName" />
+  <button class="btn btn-primary" (click)="onLogin()">Login</button>
+  <div [hidden]="!loginFailed">
+    Sorry, but this username is already taken
+  </div>
 </div>
