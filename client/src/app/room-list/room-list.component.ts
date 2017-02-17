@@ -27,6 +27,7 @@ export class RoomListComponent implements OnInit {
     });
   }
 
+
   onJoinRoom(roomName: string) {
     this.chatService.joinRoom({ room: roomName, pass: '' }).subscribe(succeeded => {
       if (succeeded === true) {
@@ -37,6 +38,11 @@ export class RoomListComponent implements OnInit {
         this.joinFailReason = 'placeholder';
       }
     });
+  }
+
+  onlogOut() {
+    this.chatService.logOut();
+    this.router.navigate(['/login']);
   }
 
   onNewRoom() {
@@ -51,8 +57,5 @@ export class RoomListComponent implements OnInit {
     });
   }
 
-  logOut() {
-    this.router.navigate(['/login']);
-  }
 
 }

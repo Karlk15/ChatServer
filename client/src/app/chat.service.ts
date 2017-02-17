@@ -23,8 +23,15 @@ export class ChatService {
     return observable;
   }
 
+  logOut() {
+    const observable = new Observable(observer => {
+      this.socket.emit('disconnect');
+    });
+    return observable;
+  }
+
   getRoomList(): Observable<string[]> {
-    const obs = new Observable(observer => {
+    const observable = new Observable(observer => {
       this.socket.emit('rooms');
       this.socket.on('roomlist', (lst) => {
         const strArr: string[] = [];
@@ -36,7 +43,7 @@ export class ChatService {
         observer.next(strArr);
       });
     });
-    return obs;
+    return observable;
   }
 
   joinRoom(roomInfo: any): Observable<boolean> {
@@ -72,18 +79,18 @@ export class ChatService {
     const observable = new Observable(observer => {
       this.socket.emit('users');
 
-      this.socket.on('userlist', (lst) => {
+      this.socket.on('userlist', (users) => {
 
-      // converting the string to an object so we can use for-in loop on it
-      const obj = lst.reduce(function(acc, cur, i) {
+        // converting the string to an object so we can use for-in loop on it
+        /*const obj = lst.reduce(function(acc, cur, i) {
           acc[i] = cur;
           return acc;
-        }, {});
+        }, {});*/
 
         const strArr: string[] = [];
-        for (const x in obj) {
-          if (lst.hasOwnProperty(x)) {
-            strArr.push(obj[x]);
+        for (let i = 0; i < users.length; i++) {
+          if (users.hasOwnProperty(i)) {
+            strArr.push(users[i]);
           }
         }
         observer.next(strArr);
