@@ -1,23 +1,27 @@
-
-<ul>
-  <li *ngFor='let user of users'>
-    {{user}}
-  </li>
-</ul>
-
-<br>
-
-<ul>
-  <li *ngFor='let room of rooms'>
-    <button class="btn btn-primary" (click)='onJoinRoom(room)'>{{room}}</button>
-  </li>
-</ul>
-
-<div [hidden]='!joinFailed'>
-  Sorry, unable to join room because {{joinFailReason}}
+<div class="row">
+    <div class="col-md-3">
+        <ul style="list-style-type:none">
+          <li><input id="newroomID" [(ngModel)]='newRoomName' placeholder="Enter new room name"/></li>
+          <li><button id="newroombuttonID" class="btn btn-primary" (click)='onNewRoom()'>Create new room</button></li>
+          <li><button id="logoutID" class="btn btn-primary" (click)="onlogOut()">Log out</button></li>
+          <div [hidden]='!joinFailed'>
+            Sorry, unable to join room because {{joinFailReason}}
+          </div>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <div class="btn-group-vertical" id="roomlistID">
+            <p id="roomlistHeader">Chatrooms</p>
+            <button *ngFor='let room of rooms' id="roomID" class="btn btn-primary" (click)='onJoinRoom(room)'>{{room}}</button>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <p id="userlistHeader">Active users</p>
+        <ul id="userlistID" style="list-style-type:none">
+          <li *ngFor='let user of users'>
+            {{user}}
+          </li>
+        </ul>
+    </div>
 </div>
-
-<input [(ngModel)]='newRoomName' />
-<button class="btn btn-primary" (click)='onNewRoom()'>Create new room</button>
-<button class="btn btn-primary" (click)="onlogOut()">logOut</button>
 
