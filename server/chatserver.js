@@ -1,6 +1,6 @@
-var express = require('express'), 
-app = express(), 
-http = require('http'), 
+var express = require('express'),
+app = express(),
+http = require('http'),
 server = http.createServer(app),
 io = require('socket.io').listen(server);
 
@@ -111,7 +111,7 @@ io.sockets.on('connection', function (socket) {
 
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendmsg', function (data) {
-		
+
 		var userAllowed = false;
 
 		//Check if user is allowed to send message.
@@ -270,7 +270,7 @@ io.sockets.on('connection', function (socket) {
 	//Returns a list of all connected users.
 	socket.on('users', function() {
 		var userlist = [];
-
+		console.log("request list of users");
 		//We need to construct the list since the users in the global user roster have a reference to socket, which has a reference
 		//back to users so the JSON serializer can't serialize them.
 		for(var user in users) {

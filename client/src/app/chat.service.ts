@@ -17,7 +17,6 @@ export class ChatService {
   login(userName: string): Observable<boolean> {
     const observable = new Observable(observer => {
       this.socket.emit('adduser', userName, succeeded => {
-        console.log('Reply received');
         observer.next(succeeded);
       });
     });
@@ -81,10 +80,17 @@ export class ChatService {
       this.socket.emit('users');
 
       this.socket.on('userlist', (lst) => {
+
+        // converting the string to an object so we can use for-in loop on it
+        const obj = lst.reduce(function(acc, cur, i) {
+          acc[i] = cur;
+          return acc;
+        }, {});
+
         const strArr: string[] = [];
-        for (const x in lst) {
+        for (const x in obj) {
           if (lst.hasOwnProperty(x)) {
-            strArr.push(x);
+            strArr.push(obj[x]);
           }
         }
         observer.next(strArr);
@@ -94,7 +100,8 @@ export class ChatService {
     return observable;
   }
 
-
-
+  sendMessage(messageInfo: any) {
+    console.log(messageInfo);
+  }
 
 }
