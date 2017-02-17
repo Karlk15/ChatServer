@@ -11,6 +11,7 @@ export class RoomComponent implements OnInit {
 
   roomName: string;
   newMessage: string;
+  users: string[];
 
   constructor(private chatService: ChatService,
     private router: Router,
@@ -18,6 +19,10 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
+
+    this.chatService.getJoinedUsersInChat().subscribe(lst => {
+      this.users = lst;
+    });
   }
 
   leaveRoom() {
@@ -26,7 +31,7 @@ export class RoomComponent implements OnInit {
   }
 
   sendMessage() {
-    this.chatService.sendMessage({roomName: this.roomName, msg: this.newMessage});
+    this.chatService.sendMessage({ roomName: this.roomName, msg: this.newMessage });
   }
 
 }

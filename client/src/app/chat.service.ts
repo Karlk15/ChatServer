@@ -100,6 +100,21 @@ export class ChatService {
     return observable;
   }
 
+  getJoinedUsersInChat(): Observable<string[]> {
+    const observable = new Observable(observer => {
+      this.socket.emit('updateusers', (roomName, users, ops) => {
+        const strArr: string[] = [];
+        for (const x in obj) {
+          if (room.hasOwnProperty(x)) {
+            strArr.push(obj[x]);
+          }
+        }
+        observer.next(strArr);
+      });
+    })
+    return observable;
+  }
+
   sendMessage(messageInfo: any) {
     console.log(messageInfo);
   }
