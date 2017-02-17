@@ -19,10 +19,12 @@ export class RoomListComponent implements OnInit {
 
   ngOnInit() {
     this.chatService.getRoomList().subscribe(lst => {
+      console.log(lst);
       this.rooms = lst;
     });
 
     this.chatService.getAllConnectedUsers().subscribe(lst => {
+      console.log(lst);
       this.users = lst;
     });
   }
@@ -49,6 +51,10 @@ export class RoomListComponent implements OnInit {
         this.router.navigate(['room', this.newRoomName]);
       }
     });
+  }
+
+  leaveRooms() {
+    this.router.navigate(['/login']);
   }
 
 }
