@@ -10,7 +10,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RoomComponent implements OnInit {
 
   roomName: string;
+  messageInfo: any[];
   newMessage: string;
+
 
   constructor(private chatService: ChatService,
     private router: Router,
@@ -18,15 +20,21 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
+    this.chatService.updateChat().subscribe( info => {
+      this.messageInfo = info.msg;
+      console.log(info);
+    });
   }
 
-  leaveRoom() {
-    this.chatService.leaveRoom(this.roomName);
+  onLeaveRoom() {
+    this.chatService.leaveRoom(this.roomName).subscribe();
     this.router.navigate(['/rooms']);
   }
 
   sendMessage() {
-    this.chatService.sendMessage({roomName: this.roomName, msg: this.newMessage});
+    if (this.newMessage.length > 0) {
+        this.chatService.sendMessage({roomName: this.roomName, msg: this.newMessage}).subscribe();
+    }
   }
 
 }
