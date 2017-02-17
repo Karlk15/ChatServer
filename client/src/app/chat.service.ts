@@ -24,8 +24,15 @@ export class ChatService {
     return observable;
   }
 
+  logOut() {
+    const observable = new Observable(observer => {
+      this.socket.emit('disconnect');
+    });
+    return observable;
+  }
+
   getRoomList(): Observable<string[]> {
-    const obs = new Observable(observer => {
+    const observable = new Observable(observer => {
       this.socket.emit('rooms');
       this.socket.on('roomlist', (lst) => {
         const strArr: string[] = [];
@@ -37,7 +44,7 @@ export class ChatService {
         observer.next(strArr);
       });
     });
-    return obs;
+    return observable;
   }
 
   joinRoom(roomInfo: any): Observable<boolean> {
@@ -86,5 +93,8 @@ export class ChatService {
     });
     return observable;
   }
+
+
+
 
 }
