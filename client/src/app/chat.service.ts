@@ -104,14 +104,14 @@ export class ChatService {
     const observable = new Observable(observer => {
       this.socket.emit('updateusers', (roomName, users, ops) => {
         const strArr: string[] = [];
-        for (const x in obj) {
-          if (room.hasOwnProperty(x)) {
-            strArr.push(obj[x]);
+        for (let i = 0; i < users.length; i++) {
+          if (users.hasOwnProperty(i)) {
+            strArr.push(users[i]);
           }
         }
         observer.next(strArr);
       });
-    })
+    });
     return observable;
   }
 
