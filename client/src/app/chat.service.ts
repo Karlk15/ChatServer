@@ -79,18 +79,18 @@ export class ChatService {
     const observable = new Observable(observer => {
       this.socket.emit('users');
 
-      this.socket.on('userlist', (lst) => {
+      this.socket.on('userlist', (users) => {
 
         // converting the string to an object so we can use for-in loop on it
-        const obj = lst.reduce(function(acc, cur, i) {
+        /*const obj = lst.reduce(function(acc, cur, i) {
           acc[i] = cur;
           return acc;
-        }, {});
+        }, {});*/
 
         const strArr: string[] = [];
-        for (const x in obj) {
-          if (lst.hasOwnProperty(x)) {
-            strArr.push(obj[x]);
+        for (let i = 0; i < users.length; i++) {
+          if (users.hasOwnProperty(i)) {
+            strArr.push(users[i]);
           }
         }
         observer.next(strArr);
