@@ -22,8 +22,8 @@ export class RoomListComponent implements OnInit {
       this.rooms = lst;
     });
 
-    this.chatService.getAllConnectedUsers().subscribe(lst => {
-      this.users = lst;
+    this.chatService.getAllConnectedUsers().subscribe(userList => {
+      this.users = userList;
     });
   }
 
@@ -41,7 +41,7 @@ export class RoomListComponent implements OnInit {
   }
 
   onlogOut() {
-    this.chatService.logOut();
+    this.chatService.logOut().subscribe();
     this.router.navigate(['/login']);
   }
 
