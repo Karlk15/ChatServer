@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 export class ChatService {
 
   socket: any;
+  newUser: string;
 
   constructor() {
     this.socket = io('http://localhost:8080');
@@ -15,8 +16,9 @@ export class ChatService {
   }
 
   login(userName: string): Observable<boolean> {
+    this.newUser = userName;
     const observable = new Observable(observer => {
-      this.socket.emit('adduser', userName, succeeded => {
+      this.socket.emit('adduser', this.newUser, succeeded => {
         observer.next(succeeded);
       });
     });
@@ -105,8 +107,6 @@ export class ChatService {
   updateChat(): Observable<any> {
     const observable = new Observable(observer => {
       this.socket.on('updatechat', (roomName , message)  => {
-        console.log(roomName);
-        console.log(message);
 
         const chatInfo = {
           rName: roomName,

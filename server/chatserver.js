@@ -130,10 +130,9 @@ io.sockets.on('connection', function (socket) {
 				timestamp :  new Date(),
 				message : data.msg.substring(0, 200)
 			};
-			console.log("updated chat1");
+			
 			rooms[data.roomName].addMessage(messageObj);
 			io.sockets.emit('updatechat', data.roomName, rooms[data.roomName].messageHistory);
-			console.log("updated cha2");
 		}
 	});
 

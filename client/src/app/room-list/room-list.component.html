@@ -9,7 +9,7 @@
 
 <ul>
   <li *ngFor='let room of rooms'>
-    <button (click)='onJoinRoom(room)'>{{room}}</button>
+    <button class="btn btn-primary" (click)='onJoinRoom(room)'>{{room}}</button>
   </li>
 </ul>
 
@@ -18,6 +18,6 @@
 </div>
 
 <input [(ngModel)]='newRoomName' />
-<button (click)='onNewRoom()'>Create new room</button>
+<button class="btn btn-primary" (click)='onNewRoom()'>Create new room</button>
+<button class="btn btn-primary" (click)="onlogOut()">logOut</button>
 
-<button (click)="onlogOut()">logOut</button>

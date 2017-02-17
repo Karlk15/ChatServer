@@ -1,7 +1,16 @@
 <!DOCTYPE html>
-
-<input [(ngModel)]="userName" />
-<button (click)="onLogin()">Login</button>
-<div [hidden]="!loginFailed">
-  Sorry, but this username is already taken
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+    <ul style="list-style-type:none">
+        <li><input id="inputLogin" [(ngModel)]="userName" placeholder="Enter username" /></li>
+        <li><button id="buttonLogin" class="btn btn-primary" (click)="onLogin()">Login</button></li>
+    </ul>
+    <div id="loginError" [hidden]="!loginFailed">
+      Sorry, but this username is invalid
+    </div>
+  </div>
+  <div class="col-md-2">
+  </div>
 </div>
