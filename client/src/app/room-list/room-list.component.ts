@@ -19,12 +19,14 @@ export class RoomListComponent implements OnInit {
 
   ngOnInit() {
     this.chatService.getRoomList().subscribe(lst => {
+      console.log(lst);
       this.rooms = lst;
     });
 
-    /*this.chatService.getAllConnectedUsers().subscribe(lst => {
+    this.chatService.getAllConnectedUsers().subscribe(lst => {
+      console.log(lst);
       this.users = lst;
-    });*/
+    });
   }
 
   onJoinRoom(roomName: string) {
@@ -41,9 +43,18 @@ export class RoomListComponent implements OnInit {
 
   onNewRoom() {
     if (this.newRoomName.length < 1) {
-        return;
+      console.log('room name invalid');
+      return;
     }
-    this.chatService.addRoom(this.newRoomName);
+    this.chatService.addRoom(this.newRoomName).subscribe(succeeded => {
+      if (succeeded === true) {
+        this.router.navigate(['room', this.newRoomName]);
+      }
+    });
+  }
+
+  logOut() {
+    this.router.navigate(['/login']);
   }
 
 }
