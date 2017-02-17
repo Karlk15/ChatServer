@@ -1,0 +1,28 @@
+* {
+    font-family: helvetica;
+}
+
+#roomID {
+    min-width: 600px;
+    margin-top: 2%;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+#roomlistID {
+    margin-left: 10%
+}
+
+#roomlistHeader {
+    font-size: 30px;
+    text-align: center;
+}
+
+#userlistHeader {
+    font-size: 20px;
+    text-align: center;
+}
+
+#userlistID {
+    margin-left: 35%;
+}
