@@ -8,7 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
+
   roomName: string;
+  newMessage: string;
+
   constructor(private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute) { }
@@ -20,6 +23,10 @@ export class RoomComponent implements OnInit {
   leaveRoom() {
     this.chatService.leaveRoom(this.roomName);
     this.router.navigate(['/rooms']);
+  }
+
+  sendMessage() {
+    this.chatService.sendMessage({roomName: this.roomName, msg: this.newMessage});
   }
 
 }
