@@ -81,12 +81,6 @@ export class ChatService {
 
       this.socket.on('userlist', (users) => {
 
-        // converting the string to an object so we can use for-in loop on it
-        /*const obj = lst.reduce(function(acc, cur, i) {
-          acc[i] = cur;
-          return acc;
-        }, {});*/
-
         const strArr: string[] = [];
         for (let i = 0; i < users.length; i++) {
           if (users.hasOwnProperty(i)) {
@@ -101,7 +95,27 @@ export class ChatService {
   }
 
   sendMessage(messageInfo: any) {
-    console.log(messageInfo);
+    const observable = new Observable(observer => {
+      this.socket.emit('sendmsg', messageInfo);
+    });
+
+    return observable;
   }
 
+  updateChat(): Observable<any> {
+    const observable = new Observable(observer => {
+      this.socket.on('updatechat', (roomName , message)  => {
+        console.log(roomName);
+        console.log(message);
+
+        const chatInfo = {
+          rName: roomName,
+          msg: message
+        };
+        observer.next(chatInfo);
+      });
+    });
+
+    return observable;
+  }
 }

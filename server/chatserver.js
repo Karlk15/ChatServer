@@ -113,6 +113,7 @@ io.sockets.on('connection', function (socket) {
 	socket.on('sendmsg', function (data) {
 
 		var userAllowed = false;
+		console.log("attempting to send a message");
 
 		//Check if user is allowed to send message.
 		if(rooms[data.roomName].users[socket.username] !== undefined) {
@@ -129,8 +130,10 @@ io.sockets.on('connection', function (socket) {
 				timestamp :  new Date(),
 				message : data.msg.substring(0, 200)
 			};
+			console.log("updated chat1");
 			rooms[data.roomName].addMessage(messageObj);
 			io.sockets.emit('updatechat', data.roomName, rooms[data.roomName].messageHistory);
+			console.log("updated cha2");
 		}
 	});
 
@@ -276,7 +279,7 @@ io.sockets.on('connection', function (socket) {
 		for(var user in users) {
 			userlist.push(user);
 		}
-		socket.emit('userlist', userlist);
+		io.sockets.emit('userlist', userlist);
 	});
 
 	//Sets topic for room.
