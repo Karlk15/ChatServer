@@ -53,7 +53,7 @@ export class RoomListComponent implements OnInit {
     });
   }
 
-  leaveRooms() {
+  logOut() {
     this.router.navigate(['/login']);
   }
 
