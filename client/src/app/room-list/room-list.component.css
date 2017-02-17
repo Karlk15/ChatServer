@@ -26,3 +26,43 @@
 #userlistID {
     margin-left: 35%;
 }
+
+#newroomID {
+    padding: 5px;
+    border-radius: 12px;
+    text-align: center;
+    min-width: 200px;
+}
+
+#newroomID:focus {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
+#newroombuttonID {  
+    padding: 5px;
+    border-radius: 12px;
+    margin-top: 1%;
+    min-width: 200px;
+}
+
+#newroombuttonID:focus {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
+#logoutID {
+    margin-top: 10%;
+    border-radius: 12px;
+    min-width: 200px;
+}
+
+#logoutID:focus {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}

@@ -33,3 +33,8 @@
     border-radius: 12px;
 	min-width: 190px;
 }
+
+.btn-primary:hover {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
