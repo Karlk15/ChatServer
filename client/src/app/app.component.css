@@ -1,7 +1,13 @@
 #banner {
-    background-color: lightgray;
+
+    background: lightgray; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(lightsteelblue, white); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(lightsteelblue, white); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(lightsteelblue, white); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(lightsteelblue, white); /* Standard syntax */
+
     margin: -1% -1% 0% -1%;
-    padding: 10px;
+    min-height: 240px;
     font-family: Helvetica;
 }
 
