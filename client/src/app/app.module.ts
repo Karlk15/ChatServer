@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomComponent } from './room/room.component';
 import { ChatService } from './chat.service';
+import { ButtonsModule } from 'ng2-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +22,7 @@ import { ChatService } from './chat.service';
     BrowserModule,
     FormsModule,
     HttpModule,
+    ButtonsModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       redirectTo: 'login',
