@@ -1,24 +1,24 @@
 # ChatServer
-### Get stated with a clean machine run this cmd in client & server:
+### Get stated with a clean machine run this cmd in /client & server:
 
-> $ npm install
+> $npm install
 
-## To run server run this cmd in server:
+## To run server enter cmd in /server:
 
-> $ node chatserver.js
+> $node chatserver.js
 
-## To run client run thi cmd in client:
+## To run client enter cmd in /client:
  
-> $ ng serve
+> $ng serve
 
-## To test TsLint run this cmd in client:
+## To test TsLint enter cmd in /client:
 
-> $ grunt test 
+> $grunt test 
  
 or 
  
 > $grunt tslint
 
-## To concatenate and minify run this cmd in client:
+## To concatenate & minify enter this cmd in /client:
 
 > $ ./conCatAndUglify
