@@ -3,19 +3,15 @@
 
 > $ npm install
 
-## To run server cmd:
-
-> $ cd server
+## To run server run this cmd in server:
 
 > $ node chatserver.js
 
-## To run client run cmd:
-
-> $ cd client
+## To run client run thi cmd in client:
  
 > $ ng serve
 
-## To test TsLint run cmd:
+## To test TsLint run this cmd in client:
 
 > $ grunt test 
  
@@ -23,8 +19,6 @@ or
  
 > $grunt tslint
 
-## To concatenate and minify run cmd:
+## To concatenate and minify run this cmd in client:
 
-> $ cd client
- 
 > $ ./conCatAndUglify
