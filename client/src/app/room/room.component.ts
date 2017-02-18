@@ -22,7 +22,6 @@ export class RoomComponent implements OnInit {
     this.roomName = this.route.snapshot.params['roomName'];
     this.chatService.updateChat().subscribe( info => {
       this.messageInfo = info.msg;
-      console.log(info);
     });
   }
 

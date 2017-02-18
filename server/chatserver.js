@@ -130,7 +130,7 @@ io.sockets.on('connection', function (socket) {
 				timestamp :  new Date(),
 				message : data.msg.substring(0, 200)
 			};
-			
+
 			rooms[data.roomName].addMessage(messageObj);
 			io.sockets.emit('updatechat', data.roomName, rooms[data.roomName].messageHistory);
 		}
@@ -175,7 +175,9 @@ io.sockets.on('connection', function (socket) {
 			//Broadcast the the user has left the channels he was in.
 			io.sockets.emit('servermessage', "quit", users[socket.username].channels, socket.username);
 			//Remove the user from the global user roster.
+
 			delete users[socket.username];
+
 		}
 	});
 
