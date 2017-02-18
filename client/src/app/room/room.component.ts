@@ -64,7 +64,7 @@ export class RoomComponent implements OnInit {
 
   onSendMessage() {
     if (this.newMessage !== undefined) {
-      this.chatService.sendMessage({ roomName: this.roomName, msg: "[" + this.currentUser + "]: " + this.newMessage }).subscribe();
+      this.chatService.sendMessage({ roomName: this.roomName, msg: '[' + this.currentUser + ']: ' + this.newMessage }).subscribe();
       this.newMessage = undefined;
     }
     this.scrollToBottom();
