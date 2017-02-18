@@ -13,6 +13,7 @@ export class RoomComponent implements OnInit {
   messageInfo: any[];
   newMessage: string;
   users: string[];
+  roomAdmins: string[];
 
 
   constructor(private chatService: ChatService,
@@ -22,12 +23,15 @@ export class RoomComponent implements OnInit {
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
 
-    this.chatService.getJoinedUsersInChat().subscribe(lst => {
-      this.users = lst;
+    this.chatService.getJoinedUsersInChat().subscribe( users => {
+      this.users = users.userArr;
+      this.roomAdmins = users.opArr;
     });
+
     this.chatService.updateChat().subscribe(info => {
       this.messageInfo = info.msg;
     });
+
   }
 
   onLeaveRoom() {
