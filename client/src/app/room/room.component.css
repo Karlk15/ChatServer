@@ -38,7 +38,12 @@
     border-radius: 12px;
 }
 
-#sendMessage:focus:hover {
+#sendMessage:hover {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
+#sendMessage:focus {
     box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
 	outline: none;
 }
