@@ -34,6 +34,7 @@ export class RoomListComponent implements OnInit {
         this.joinFailed = false;
         this.router.navigate(['/room', roomName]);
       } else {
+        // TODO popup stating why you cannot enter room
         this.joinFailed = true;
         this.joinFailReason = joinInfo.noJoinReason;
       }
