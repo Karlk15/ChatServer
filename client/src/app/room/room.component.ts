@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./room.component.css']
 })
 export class RoomComponent implements OnInit {
-
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   roomName: string;
   messageInfo: any[];
   newMessage: string;
@@ -21,7 +21,6 @@ export class RoomComponent implements OnInit {
   constructor(private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute) { }
-
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
 
@@ -41,6 +40,7 @@ export class RoomComponent implements OnInit {
       this.messageInfo = info.msg;
     });
 
+    this.scrollToBottom();
 
     // redirect the correct kicked user to rooms/
     this.chatService.userKicked().subscribe(info => {
@@ -55,7 +55,6 @@ export class RoomComponent implements OnInit {
         this.router.navigate(['rooms']);
       }
     });
-
   }
 
   onLeaveRoom() {
@@ -67,6 +66,15 @@ export class RoomComponent implements OnInit {
     if (this.newMessage.length > 0) {
       this.chatService.sendMessage({ roomName: this.roomName, msg: this.newMessage }).subscribe();
     }
+    this.scrollToBottom();
+  }
+
+
+  scrollToBottom(): void {
+      try {
+          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      } catch ( err ) {
+      }
   }
 
   onKickUser(kickUser: string) {
@@ -93,5 +101,4 @@ export class RoomComponent implements OnInit {
     }
 
   }
-
 }

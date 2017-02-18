@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e 
+ng build
+grunt
+exit 0
