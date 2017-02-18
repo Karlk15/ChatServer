@@ -8,6 +8,7 @@ export class ChatService {
   socket: any;
   newUser: string;
   currentRoom: string;
+  banList: any[] = [];
 
   constructor() {
     this.socket = io('http://localhost:8080');
@@ -159,5 +160,36 @@ export class ChatService {
 
     return observable;
   }
+
+  banUser(banUserInfo: any): Observable<boolean> {
+
+    this.banList.push(banUserInfo);
+    console.log(this.banList);
+
+    const observable = new Observable(observer => {
+      this.socket.emit('ban', banUserInfo, succeeded => {
+        observer.next(succeeded);
+      });
+    });
+    return observable;
+  }
+
+  userBanned(): Observable<any> {
+    const observable = new Observable(observer => {
+      this.socket.on('banned', (roomName, banName, op) => {
+
+        const banInfo = {
+          rName: roomName,
+          userBanned: banName,
+          admin: op
+        };
+
+        observer.next(banInfo);
+      });
+    });
+
+    return observable;
+  }
+
 
 }

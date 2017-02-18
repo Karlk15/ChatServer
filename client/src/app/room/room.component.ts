@@ -44,7 +44,14 @@ export class RoomComponent implements OnInit {
 
     // redirect the correct kicked user to rooms/
     this.chatService.userKicked().subscribe(info => {
-      if ((info.rName === this.roomName) && (info.userKicked === this.currentUser) && (info.isAdmin !== false) ) {
+      if ((info.rName === this.roomName) && (info.userKicked === this.currentUser) ) {
+        this.router.navigate(['rooms']);
+      }
+    });
+
+    // redirect the correct banned user to rooms/
+    this.chatService.userBanned().subscribe(info => {
+      if ((info.rName === this.roomName) && (info.userBanned === this.currentUser) ) {
         this.router.navigate(['rooms']);
       }
     });
@@ -67,6 +74,8 @@ export class RoomComponent implements OnInit {
 
   }
 
-
+  onBanUser(banUser: string) {
+    this.chatService.banUser({user: banUser, room: this.roomName}).subscribe();
+  }
 
 }
