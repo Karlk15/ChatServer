@@ -1,4 +1,11 @@
 # ChatServer
+### Get stated with a clean machine:
+
+> $ cd server
+
+> $ npm install
+
+> $ cd client
 
 > $ npm install
 
