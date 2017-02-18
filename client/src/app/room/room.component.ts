@@ -44,7 +44,7 @@ export class RoomComponent implements OnInit {
 
     // redirect the correct kicked user to rooms/
     this.chatService.userKicked().subscribe(info => {
-      if ((info.rName === this.roomName) && (info.userKicked === this.currentUser) ) {
+      if ((info.rName === this.roomName) && (info.userKicked === this.currentUser)) {
         this.router.navigate(['rooms']);
       }
     });
@@ -79,11 +79,27 @@ export class RoomComponent implements OnInit {
   }
 
   onKickUser(kickUser: string) {
-    this.chatService.kickUser({user: kickUser, room: this.roomName}).subscribe();
+
+    // check if user being kicked is a admin
+    if (this.roomAdmins.indexOf(kickUser) < 0) {
+      this.chatService.kickUser({user: kickUser, room: this.roomName}).subscribe();
+    } else {
+      // TODO put html popup when trying to kick admin
+      console.log('cannot kick admin');
+    }
+
 
   }
 
   onBanUser(banUser: string) {
-    this.chatService.banUser({user: banUser, room: this.roomName}).subscribe();
+
+    // check if user being banned is a admin
+    if (this.roomAdmins.indexOf(banUser) < 0) {
+      this.chatService.banUser({user: banUser, room: this.roomName}).subscribe();
+    } else {
+      // TODO put html popup when trying to ban admin
+      console.log('cannot ban admin');
+    }
+
   }
 }
