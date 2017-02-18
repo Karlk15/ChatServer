@@ -20,6 +20,7 @@
           {{user}}
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onKickUser(user)">Kick</button>
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onBanUser(user)">Ban</button>
+            <button *ngIf="isAdmin" class="btn btn-danger" (click)="onOpUser(user)">MakeOP</button>
         </li>
       </ul>
   </div>

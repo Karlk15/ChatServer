@@ -25,6 +25,7 @@ export class RoomComponent implements OnInit {
     this.roomName = this.route.snapshot.params['roomName'];
 
     this.chatService.getJoinedUsersInChat().subscribe( users => {
+      console.log(users.userArr);
       this.users = users.userArr;
       this.roomAdmins = users.opArr;
       this.currentUser = users.currentUser;
@@ -92,7 +93,6 @@ export class RoomComponent implements OnInit {
   }
 
   onBanUser(banUser: string) {
-
     // check if user being banned is a admin
     if (this.roomAdmins.indexOf(banUser) < 0) {
       this.chatService.banUser({user: banUser, room: this.roomName}).subscribe();
@@ -102,4 +102,9 @@ export class RoomComponent implements OnInit {
     }
 
   }
+
+  onOpUser(opUser: string) {
+    this.chatService.opUser({user: opUser, room: this.roomName}).subscribe();
+  }
+
 }

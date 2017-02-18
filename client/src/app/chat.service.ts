@@ -123,6 +123,15 @@ export class ChatService {
     return observable;
   }
 
+  opUser(opInfo: any): Observable<boolean> {
+    const observable = new Observable(observer => {
+      this.socket.emit('op', opInfo, succeeded => {
+        observer.next(succeeded);
+      });
+    });
+    return observable;
+  }
+
   updateChat(): Observable<any> {
     const observable = new Observable(observer => {
       this.socket.on('updatechat', (roomName, message) => {
