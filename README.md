@@ -1,5 +1,5 @@
 # ChatServer
-### Get stated with a clean machine run this cmd in /client & server:
+### Get stated with a clean machine run this cmd in /client & /server:
 
 > $npm install
 
