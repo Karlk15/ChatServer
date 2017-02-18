@@ -1,39 +1,3 @@
-// module.exports = function(grunt) {
-//   grunt.initConfig({
-//     pkg: grunt.file.readJSON('package.json'),
-//     tslint: {
-//       src: ['src/**/*.ts'],
-//       gruntfile: ['Gruntfile.js'],
-//       options: {
-//         configuration: "tslint.json",
-//         force: true,
-//         fix: false
-//       }
-//     },
-//     concat: {
-//       options: {
-//         separator: ';'
-//       },
-//       dist: {
-//         src: ['dist/*.js'],
-//         dest: 'dist/concat.js'
-//       }
-//     },
-//     uglify: {
-//       dist: {
-//           files: {
-//               'dist/concat.js': 'src/uglify.js',
-//           }
-//       }
-//     }
-// });
-//
-//   grunt.loadNpmTasks('grunt-contrib-uglify');
-//   grunt.loadNpmTasks('grunt-tslint');
-//   grunt.loadNpmTasks('grunt-contrib-concat');
-//   grunt.registerTask('default', ['tslint', 'concat', 'uglify']);
-//
-// };
 module.exports = function(grunt) {
 
   grunt.initConfig({
