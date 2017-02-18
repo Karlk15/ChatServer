@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 col-lg-3">
         <ul style="list-style-type:none">
           <li><input id="newroomID" [(ngModel)]='newRoomName' placeholder="Enter new room name"/></li>
           <li><button id="newroombuttonID" class="btn btn-primary" (click)='onNewRoom()'>Create new room</button></li>
@@ -9,13 +9,13 @@
           </div>
         </ul>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 col-lg-6">
         <div class="btn-group-vertical" id="roomlistID">
             <p id="roomlistHeader">Chatrooms</p>
             <button *ngFor='let room of rooms' id="roomID" class="btn btn-primary" (click)='onJoinRoom(room)'>{{room}}</button>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3 col-lg-3">
         <p id="userlistHeader">Active users</p>
         <ul id="userlistID" style="list-style-type:none">
           <li *ngFor='let user of users'>

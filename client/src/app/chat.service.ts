@@ -28,6 +28,7 @@ export class ChatService {
   logOut() {
     const observable = new Observable(observer => {
       this.socket.emit('disconnect');
+
     });
     return observable;
   }
@@ -80,7 +81,6 @@ export class ChatService {
   getAllConnectedUsers(): Observable<string[]> {
     const observable = new Observable(observer => {
       this.socket.emit('users');
-
       this.socket.on('userlist', (users) => {
         const strArr: string[] = [];
         for (let i = 0; i < users.length; i++) {
@@ -95,6 +95,21 @@ export class ChatService {
     return observable;
   }
 
+  getJoinedUsersInChat(): Observable<string[]> {
+    const observable = new Observable(observer => {
+      this.socket.on('updateusers', (roomName, users, ops) => {
+        const strArr: string[] = [];
+        for (const x in users) {
+          if (users.hasOwnProperty(x)) {
+            strArr.push(x);
+          }
+        }
+        observer.next(strArr);
+      });
+    });
+    return observable;
+  }
+
   sendMessage(messageInfo: any) {
     const observable = new Observable(observer => {
       this.socket.emit('sendmsg', messageInfo);
@@ -105,7 +120,7 @@ export class ChatService {
 
   updateChat(): Observable<any> {
     const observable = new Observable(observer => {
-      this.socket.on('updatechat', (roomName , message)  => {
+      this.socket.on('updatechat', (roomName, message) => {
 
         const chatInfo = {
           rName: roomName,
