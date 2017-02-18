@@ -7,6 +7,7 @@ export class ChatService {
 
   socket: any;
   newUser: string;
+  currentRoom: string;
 
   constructor() {
     this.socket = io('http://localhost:8080');
@@ -44,6 +45,7 @@ export class ChatService {
   }
 
   joinRoom(roomInfo: any): Observable<boolean> {
+    this.currentRoom = roomInfo.room;
     const observable = new Observable(observer => {
       this.socket.emit('joinroom', roomInfo, (succeeded, reason) => {
         observer.next(succeeded);
@@ -96,7 +98,8 @@ export class ChatService {
         // sending back object with op of the room and array of users in room
         const usersInfo = {
           userArr: Object.keys(users),
-          opArr: Object.keys(ops)
+          opArr: Object.keys(ops),
+          currentUser: this.newUser
         };
 
         observer.next(usersInfo);
@@ -122,10 +125,39 @@ export class ChatService {
           rName: roomName,
           msg: message
         };
-        observer.next(chatInfo);
+        if (this.currentRoom === roomName) {
+          observer.next(chatInfo);
+        }
       });
     });
 
     return observable;
   }
+
+  kickUser(kickUserInfo: any): Observable<boolean> {
+    const observable = new Observable(observer => {
+      this.socket.emit('kick', kickUserInfo, succeeded => {
+        observer.next(succeeded);
+      });
+    });
+    return observable;
+  }
+
+  userKicked(): Observable<any> {
+    const observable = new Observable(observer => {
+      this.socket.on('kicked', (roomName, kickedName, op) => {
+
+        const kickInfo = {
+          rName: roomName,
+          userKicked: kickedName,
+          admin: op
+        };
+
+        observer.next(kickInfo);
+      });
+    });
+
+    return observable;
+  }
+
 }

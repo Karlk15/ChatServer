@@ -10,5 +10,8 @@
     <p>{{message.message}}</p>
   </li>
 </ul>
-<button class="btn btn-primary" (click)="sendMessage()">Send</button>
+<button class="btn btn-primary" (click)="onSendMessage()">Send</button>
 <button class="btn btn-primary" (click)="onLeaveRoom()">Leave Room</button>
+<div class="" [hidden]="!isAdmin">
+  <button class="btn btn-primary" (click)="onKickUser(users[1])">Temp kick button</button>
+</div>
