@@ -9,19 +9,17 @@
         </li>
       </ul>
     </div>
-    <textarea id="chatInput" [(ngModel)]="newMessage"></textarea>
+    <textarea id="chatInput" [(ngModel)]="newMessage" placeholder="Enter new message"></textarea>
     <button id="sendMessage" class="btn btn-primary" (click)="onSendMessage()">Send</button>
     <button id="leaveID" class="btn btn-primary" (click)="onLeaveRoom()">Leave Room</button>
   </div>
   <div class="col-md-3">
       <p id="userlistHeader">Active users</p>
       <ul id="userlistID" style="list-style-type:none">
-        <li *ngFor='let user of users'>
+        <li id="userID" *ngFor='let user of users'>
           {{user}}
-          <div class="" [hidden]="!isAdmin">
-            <button class="btn btn-danger" (click)="onKickUser(user)">Temp Kick Button</button>
-            <button class="btn btn-danger" (click)="onBanUser(user)">Temp Ban Button</button>
-          </div>
+            <button *ngIf="isAdmin" class="btn btn-danger" (click)="onKickUser(user)">Kick</button>
+            <button *ngIf="isAdmin" class="btn btn-danger" (click)="onBanUser(user)">Ban</button>
         </li>
       </ul>
   </div>
