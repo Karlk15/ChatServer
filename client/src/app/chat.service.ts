@@ -8,7 +8,6 @@ export class ChatService {
   socket: any;
   newUser: string;
   currentRoom: string;
-  banList: any[] = [];
 
   constructor() {
     this.socket = io('http://localhost:8080');
@@ -45,11 +44,17 @@ export class ChatService {
     return observable;
   }
 
-  joinRoom(roomInfo: any): Observable<boolean> {
+  joinRoom(roomInfo: any): Observable<any> {
     this.currentRoom = roomInfo.room;
     const observable = new Observable(observer => {
       this.socket.emit('joinroom', roomInfo, (succeeded, reason) => {
-        observer.next(succeeded);
+
+        const joinInfo = {
+          success: succeeded,
+          noJoinReason: reason
+        };
+
+        observer.next(joinInfo);
       });
     });
     return observable;
@@ -162,10 +167,6 @@ export class ChatService {
   }
 
   banUser(banUserInfo: any): Observable<boolean> {
-
-    this.banList.push(banUserInfo);
-    console.log(this.banList);
-
     const observable = new Observable(observer => {
       this.socket.emit('ban', banUserInfo, succeeded => {
         observer.next(succeeded);
