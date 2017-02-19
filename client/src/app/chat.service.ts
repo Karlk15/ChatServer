@@ -28,7 +28,7 @@ export class ChatService {
 
   logOut() {
     const observable = new Observable(observer => {
-      this.socket.emit('disconnect');
+      this.socket.emit('quit');
 
     });
     return observable;

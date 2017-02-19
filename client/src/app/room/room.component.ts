@@ -21,7 +21,7 @@ export class RoomComponent implements OnInit {
   isAdmin: boolean;
   newPrivateMessage: string;
   sendPrvtToUser: string;
-
+  topic: string;
 
 
   constructor(private chatService: ChatService,
@@ -31,7 +31,9 @@ export class RoomComponent implements OnInit {
     toastrConfig: ToastrConfig,) {
       toastrConfig.timeOut = 0;
       toastrConfig.extendedTimeOut = 0;
+      this.topic = 'No Topic';
     }
+
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];

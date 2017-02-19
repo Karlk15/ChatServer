@@ -160,8 +160,8 @@ io.sockets.on('connection', function (socket) {
 		io.sockets.emit('servermessage', "part", room, socket.username);
 	});
 
-	// when the user disconnects.. perform this
-	socket.on('disconnect', function(){
+	// when the user disconnects.. perform this <---- changed this function
+	socket.on('quit', function(){
 		if(socket.username) {
 			//If the socket doesn't have a username the client joined and parted without
 			//chosing a username, so we just close the socket without any cleanup.
@@ -175,8 +175,15 @@ io.sockets.on('connection', function (socket) {
 			//Broadcast the the user has left the channels he was in.
 			io.sockets.emit('servermessage', "quit", users[socket.username].channels, socket.username);
 			//Remove the user from the global user roster.
-
 			delete users[socket.username];
+
+			var userlist = [];
+			//We need to construct the list since the users in the global user roster have a reference to socket, which has a reference
+			//back to users so the JSON serializer can't serialize them.
+			for(var user in users) {
+				userlist.push(user);
+			}
+			io.sockets.emit('userlist', userlist); // <-----done by Hrafnkell
 
 		}
 	});
