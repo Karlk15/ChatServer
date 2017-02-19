@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router } from '@angular/router';
+import { ToastrService, ToastrConfig } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,13 @@ export class LoginComponent implements OnInit {
   userName: string;
   loginFailed = false;
 
-  constructor(private chatService: ChatService,
-    private router: Router) {
+  constructor(
+    private chatService: ChatService,
+    private router: Router,
+    private toastrService: ToastrService,
+    toastrConfig: ToastrConfig) {
+    toastrConfig.timeOut = 2000;
+    toastrConfig.maxOpened = 1;
   }
 
   ngOnInit() {
@@ -29,6 +35,7 @@ export class LoginComponent implements OnInit {
       });
     } else {
       this.loginFailed = true;
+      this.toastrService.error('Current username is taken', 'Error!');
     }
   }
 }
