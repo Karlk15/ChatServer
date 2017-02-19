@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     toastrConfig: ToastrConfig) {
-    toastrConfig.timeOut = 2000;
-    toastrConfig.maxOpened = 1;
+    toastrConfig.positionClass = 'toast-top-right';
   }
 
   ngOnInit() {

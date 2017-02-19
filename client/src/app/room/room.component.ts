@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService, ToastrConfig } from 'ngx-toastr';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
@@ -23,14 +23,17 @@ export class RoomComponent implements OnInit {
   sendPrvtToUser: string;
   topic: string;
 
-  //<div class="">
-    //<p>{{topic}}</p>
-  //</div>
 
   constructor(private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastrService: ToastrService) { this.topic = "No Topic"; }
+    private toastrService: ToastrService,
+    toastrConfig: ToastrConfig) {
+      toastrConfig.timeOut = 0;
+      toastrConfig.extendedTimeOut = 0;
+      this.topic = 'No Topic';
+    }
+
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
@@ -55,7 +58,10 @@ export class RoomComponent implements OnInit {
     });
 
     this.chatService.updatePrivateChat().subscribe(info => {
-      this.toastrService.info(info.msg , info.nick);
+      try {
+          this.toastrService.info(info.msg , info.nick);
+      } catch ( err ) {
+      }
     });
 
     this.scrollToBottom();
