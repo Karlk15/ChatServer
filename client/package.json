@@ -39,7 +39,6 @@
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-uglify": "^2.1.0",
     "grunt-tslint": "^4.0.1",
-    "grunt-typescript": "^0.8.0",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",
