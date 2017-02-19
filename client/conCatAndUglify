@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-ng build
-grunt uglify
-grunt concat
+  ng build
+  grunt uglify
+  grunt concat
 exit 0
