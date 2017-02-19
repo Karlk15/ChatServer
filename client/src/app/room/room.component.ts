@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService, ToastrConfig } from 'ngx-toastr';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
@@ -27,7 +27,12 @@ export class RoomComponent implements OnInit {
   constructor(private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastrService: ToastrService) {}
+    private toastrService: ToastrService,
+    toastrConfig: ToastrConfig) {
+      toastrConfig.timeOut = 0;
+      toastrConfig.extendedTimeOut = 0;
+      toastrConfig.maxOpened = 0;
+    }
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
