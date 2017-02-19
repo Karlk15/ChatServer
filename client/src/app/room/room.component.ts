@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
@@ -19,22 +20,25 @@ export class RoomComponent implements OnInit {
   private currentUser: string;
   isAdmin: boolean;
   newPrivateMessage: string;
-  privateMessage: string;
-  privateMessageSent: boolean;
   sendPrvtToUser: string;
+
 
 
   constructor(private chatService: ChatService,
     private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private toastrService: ToastrService) {}
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
 
     this.chatService.getJoinedUsersInChat().subscribe( users => {
-      this.users = users.userArr;
-      this.roomAdmins = users.opArr;
-      this.currentUser = users.currentUser;
+
+      if (this.roomName === users.roomName) {
+        this.users = users.userArr;
+        this.roomAdmins = users.opArr;
+        this.currentUser = users.currentUser;
+      }
 
       // check if currentuser is an admin
       if (this.roomAdmins.indexOf(this.currentUser) >= 0) {
@@ -51,8 +55,7 @@ export class RoomComponent implements OnInit {
     });
 
     this.chatService.updatePrivateChat().subscribe(info => {
-      this.privateMessage = info;
-      console.log(this.privateMessageSent);
+      this.toastrService.info(info.msg , info.nick);
     });
 
     this.scrollToBottom();
@@ -90,7 +93,6 @@ export class RoomComponent implements OnInit {
     if (this.newPrivateMessage !== undefined && this.sendPrvtToUser !== this.currentUser) {
       this.chatService.sendPrvtMessage({ nick: this.sendPrvtToUser, message: this.newPrivateMessage}).subscribe( succeeded => {
         if (succeeded) {
-          this.privateMessageSent = true;
           this.hideChildModal();
         }
       });

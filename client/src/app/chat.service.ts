@@ -99,13 +99,14 @@ export class ChatService {
 
   getJoinedUsersInChat(): Observable<any> {
     const observable = new Observable(observer => {
-      this.socket.on('updateusers', (roomName, users, ops) => {
+      this.socket.on('updateusers', (room, users, ops) => {
 
         // sending back object with op of the room and array of users in room
         const usersInfo = {
           userArr: Object.keys(users),
           opArr: Object.keys(ops),
-          currentUser: this.newUser
+          currentUser: this.newUser,
+          roomName: room
         };
 
         observer.next(usersInfo);
