@@ -21,13 +21,16 @@ export class RoomComponent implements OnInit {
   isAdmin: boolean;
   newPrivateMessage: string;
   sendPrvtToUser: string;
+  topic: string;
 
-
+  //<div class="">
+    //<p>{{topic}}</p>
+  //</div>
 
   constructor(private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastrService: ToastrService) {}
+    private toastrService: ToastrService) { this.topic = "No Topic"; }
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];

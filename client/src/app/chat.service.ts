@@ -72,6 +72,7 @@ export class ChatService {
     const observable = new Observable(observer => {
       this.socket.emit('users');
       this.socket.on('userlist', (users) => {
+        //console.log(users);
         const strArr: string[] = [];
         for (let i = 0; i < users.length; i++) {
           if (users.hasOwnProperty(i)) {

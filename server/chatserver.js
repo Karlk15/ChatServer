@@ -175,8 +175,8 @@ io.sockets.on('connection', function (socket) {
 			//Broadcast the the user has left the channels he was in.
 			io.sockets.emit('servermessage', "quit", users[socket.username].channels, socket.username);
 			//Remove the user from the global user roster.
-
 			delete users[socket.username];
+
 
 		}
 	});
