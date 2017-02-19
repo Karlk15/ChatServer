@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router } from '@angular/router';
+import { ToastrService, ToastrConfig } from 'ngx-toastr';
 
 @Component({
   selector: 'app-room-list',
@@ -15,7 +16,10 @@ export class RoomListComponent implements OnInit {
   joinFailReason: string;
   joinFailed = false;
 
-  constructor(private chatService: ChatService, private router: Router) { }
+  constructor(private chatService: ChatService, private router: Router, private toastrService: ToastrService, toastrConfig: ToastrConfig) {
+      toastrConfig.timeOut = 2000;
+      toastrConfig.maxOpened = 1;
+   }
 
   ngOnInit() {
     this.chatService.getRoomList().subscribe(lst => {
@@ -34,9 +38,9 @@ export class RoomListComponent implements OnInit {
         this.joinFailed = false;
         this.router.navigate(['/room', roomName]);
       } else {
-        // TODO popup stating why you cannot enter room
         this.joinFailed = true;
         this.joinFailReason = joinInfo.noJoinReason;
+        this.toastrService.warning('Reason: ' + this.joinFailReason, 'Cannot join room');
       }
     });
   }
