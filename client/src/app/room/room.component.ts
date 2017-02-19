@@ -31,7 +31,6 @@ export class RoomComponent implements OnInit {
     toastrConfig: ToastrConfig) {
       toastrConfig.timeOut = 0;
       toastrConfig.extendedTimeOut = 0;
-      toastrConfig.maxOpened = 0;
     }
 
   ngOnInit() {
@@ -57,7 +56,10 @@ export class RoomComponent implements OnInit {
     });
 
     this.chatService.updatePrivateChat().subscribe(info => {
-      this.toastrService.info(info.msg , info.nick);
+      try {
+          this.toastrService.info(info.msg , info.nick);
+      } catch ( err ) {
+      }
     });
 
     this.scrollToBottom();
