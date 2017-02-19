@@ -28,20 +28,20 @@ export class RoomComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastrService: ToastrService,
-    toastrConfig: ToastrConfig,) {
-      toastrConfig.timeOut = 0;
-      toastrConfig.extendedTimeOut = 0;
-      this.topic = 'No Topic';
-    }
+    toastrConfig: ToastrConfig) {
+    toastrConfig.timeOut = 0;
+    toastrConfig.extendedTimeOut = 0;
+    this.topic = 'No Topic';
+  }
 
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
 
-    this.chatService.getJoinedUsersInChat().subscribe( users => {
-        this.users = users.userArr;
-        this.roomAdmins = users.opArr;
-        this.currentUser = users.currentUser;
+    this.chatService.getJoinedUsersInChat().subscribe(users => {
+      this.users = users.userArr;
+      this.roomAdmins = users.opArr;
+      this.currentUser = users.currentUser;
 
       // check if currentuser is an admin
       if (this.roomAdmins.indexOf(this.currentUser) >= 0) {
@@ -59,8 +59,8 @@ export class RoomComponent implements OnInit {
 
     this.chatService.updatePrivateChat().subscribe(info => {
       try {
-          this.toastrService.info(info.msg , info.nick);
-      } catch ( err ) {
+        this.toastrService.info(info.msg, info.nick);
+      } catch (err) {
       }
     });
 
@@ -75,7 +75,7 @@ export class RoomComponent implements OnInit {
 
     // redirect the correct banned user to rooms/
     this.chatService.userBanned().subscribe(info => {
-      if ((info.rName === this.roomName) && (info.userBanned === this.currentUser) ) {
+      if ((info.rName === this.roomName) && (info.userBanned === this.currentUser)) {
         this.router.navigate(['rooms']);
       }
     });
@@ -97,7 +97,7 @@ export class RoomComponent implements OnInit {
 
   onSendPrvtMessage() {
     if (this.newPrivateMessage !== undefined && this.sendPrvtToUser !== this.currentUser) {
-      this.chatService.sendPrvtMessage({ nick: this.sendPrvtToUser, message: this.newPrivateMessage}).subscribe( succeeded => {
+      this.chatService.sendPrvtMessage({ nick: this.sendPrvtToUser, message: this.newPrivateMessage }).subscribe(succeeded => {
         if (succeeded) {
           this.hideChildModal();
         }
@@ -109,17 +109,17 @@ export class RoomComponent implements OnInit {
 
 
   scrollToBottom(): void {
-      try {
-          this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-      } catch ( err ) {
-      }
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) {
+    }
   }
 
   onKickUser(kickUser: string) {
 
     // check if user being kicked is a admin
     if (this.roomAdmins.indexOf(kickUser) < 0) {
-      this.chatService.kickUser({user: kickUser, room: this.roomName}).subscribe();
+      this.chatService.kickUser({ user: kickUser, room: this.roomName }).subscribe();
     } else {
       // TODO put html popup when trying to kick admin
       console.log('cannot kick admin');
@@ -131,7 +131,7 @@ export class RoomComponent implements OnInit {
   onBanUser(banUser: string) {
     // check if user being banned is a admin
     if (this.roomAdmins.indexOf(banUser) < 0) {
-      this.chatService.banUser({user: banUser, room: this.roomName}).subscribe();
+      this.chatService.banUser({ user: banUser, room: this.roomName }).subscribe();
     } else {
       // TODO put html popup when trying to ban admin
       console.log('cannot ban admin');
@@ -140,12 +140,12 @@ export class RoomComponent implements OnInit {
   }
 
   onOpUser(opUser: string) {
-    this.chatService.opUser({user: opUser, room: this.roomName}).subscribe();
+    this.chatService.opUser({ user: opUser, room: this.roomName }).subscribe();
   }
 
   onDeOpUser(opUser: string) {
     if (this.currentUser !== opUser) {
-      this.chatService.deOpUser({user: opUser, room: this.roomName}).subscribe();
+      this.chatService.deOpUser({ user: opUser, room: this.roomName }).subscribe();
     }
 
   }
@@ -157,12 +157,11 @@ export class RoomComponent implements OnInit {
   public showChildModal(Admin: string): void {
     if (this.currentUser !== Admin) {
       this.childModal.show();
-    }
-    else {
+    } else {
       try {
-          const warningConfig: ToastConfig = {timeOut: 2000, extendedTimeOut: 2000};
-          this.toastrService.warning('Cannot send private message to yourself' , '', warningConfig);
-      } catch ( err ) {
+        const warningConfig: ToastConfig = { timeOut: 2000, extendedTimeOut: 2000 };
+        this.toastrService.warning('Cannot send private message to yourself', '', warningConfig);
+      } catch (err) {
       }
     }
   }
