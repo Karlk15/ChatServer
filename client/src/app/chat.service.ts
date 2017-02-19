@@ -97,7 +97,7 @@ export class ChatService {
           roomName: room
         };
 
-        if(this.currentRoom === room){
+        if (this.currentRoom === room) {
           observer.next(usersInfo);
         }
 

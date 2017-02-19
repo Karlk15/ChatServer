@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router } from '@angular/router';
+import { ToastrService, ToastrConfig } from 'ngx-toastr';
 
 @Component({
   selector: 'app-room-list',
@@ -13,9 +14,11 @@ export class RoomListComponent implements OnInit {
   users: string[];
   newRoomName: string;
   joinFailReason: string;
-  joinFailed = false;
 
-  constructor(private chatService: ChatService, private router: Router) { }
+  constructor(private chatService: ChatService, private router: Router, private toastrService: ToastrService, toastrConfig: ToastrConfig) {
+      toastrConfig.timeOut = 2000;
+      toastrConfig.maxOpened = 1;
+   }
 
   ngOnInit() {
     this.chatService.getRoomList().subscribe(lst => {
@@ -32,7 +35,7 @@ export class RoomListComponent implements OnInit {
     if (roomName !== undefined || this.newRoomName !== undefined) {
       let roomInfo: any;
 
-      if(roomName === undefined){
+      if (roomName === undefined) {
         roomInfo = {
           room: this.newRoomName,
           pass: ''
@@ -42,22 +45,20 @@ export class RoomListComponent implements OnInit {
           room: roomName,
           pass: ''
         };
-      }
 
+      }
 
       this.chatService.joinRoom(roomInfo).subscribe(joinInfo => {
         if (joinInfo.success === true) {
-          this.joinFailed = false;
           this.router.navigate(['/room', roomInfo.room]);
         } else {
-          // TODO popup stating why you cannot enter room
-          this.joinFailed = true;
           this.joinFailReason = joinInfo.noJoinReason;
+          this.toastrService.warning('Reason: ' + this.joinFailReason, 'Cannot join room');
         }
       });
       this.newRoomName = undefined;
     } else {
-      // TOESTER
+      this.toastrService.warning('Please specify a room name', 'Invalid Name');
     }
 
   }

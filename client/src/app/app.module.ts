@@ -13,6 +13,7 @@ import { ChatService } from './chat.service';
 import { ButtonsModule } from 'ng2-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { ModalModule } from 'ng2-bootstrap';
+import { DropdownModule } from 'ng2-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ModalModule } from 'ng2-bootstrap';
     HttpModule,
     ButtonsModule.forRoot(),
     ModalModule.forRoot(),
+    DropdownModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       redirectTo: 'login',

@@ -135,7 +135,10 @@ export class RoomComponent implements OnInit {
   }
 
   onDeOpUser(opUser: string) {
-    this.chatService.deOpUser({user: opUser, room: this.roomName}).subscribe();
+    if (this.currentUser !== opUser) {
+      this.chatService.deOpUser({user: opUser, room: this.roomName}).subscribe();
+    }
+
   }
 
   getPrvtSendToUser(User: string) {
