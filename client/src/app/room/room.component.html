@@ -15,14 +15,14 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-3">
+  <div id="adminlistID" class="col-md-3">
     <p id="userlistHeader">Active admins</p>
     <ul id="userlistID" style="list-style-type:none">
-      <li id="userID" *ngFor='let admin of roomAdmins'>
+      <li id="adminID" *ngFor='let admin of roomAdmins'>
         <span dropdown>
           <a href id="simple-dropdown" dropdownToggle>{{admin}}</a>
           <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
-            <li><a class="dropdown-item" (click)="showChildModal(); getPrvtSendToUser(admin)">Private message</a></li>
+            <li><a class="dropdown-item" (click)="showChildModal(admin); getPrvtSendToUser(admin)">Private message</a></li>
             <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onDeOpUser(admin)">Demote from Op</a></li>
           </ul>
         </span>
@@ -48,7 +48,7 @@
           <span dropdown>
             <a href id="simple-dropdown" dropdownToggle>{{user}}</a>
             <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
-              <li><a class="dropdown-item" (click)="showChildModal(); getPrvtSendToUser(user)">Private message</a></li>
+              <li><a class="dropdown-item" (click)="showChildModal(user); getPrvtSendToUser(user)">Private message</a></li>
               <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onKickUser(user)">Kick</a></li>
               <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onBanUser(user)">Ban</a></li>
               <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onOpUser(user)">Promote to Op</a></li>

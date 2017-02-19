@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ToastrService, ToastrConfig } from 'ngx-toastr';
+import { ToastrService, ToastrConfig, ToastConfig } from 'ngx-toastr';
 import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
@@ -28,7 +28,7 @@ export class RoomComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastrService: ToastrService,
-    toastrConfig: ToastrConfig) {
+    toastrConfig: ToastrConfig,) {
       toastrConfig.timeOut = 0;
       toastrConfig.extendedTimeOut = 0;
     }
@@ -152,8 +152,17 @@ export class RoomComponent implements OnInit {
     this.sendPrvtToUser = User;
   }
 
-  public showChildModal(): void {
-    this.childModal.show();
+  public showChildModal(Admin: string): void {
+    if (this.currentUser !== Admin) {
+      this.childModal.show();
+    }
+    else {
+      try {
+          const warningConfig: ToastConfig = {timeOut: 2000, extendedTimeOut: 2000};
+          this.toastrService.warning('Cannot send private message to yourself' , '', warningConfig);
+      } catch ( err ) {
+      }
+    }
   }
 
   public hideChildModal(): void {

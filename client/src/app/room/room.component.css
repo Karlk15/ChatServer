@@ -83,6 +83,14 @@
 	outline: none;
 }
 
+#adminlistID {
+    padding-left: 5%;
+}
+
+#adminID {
+    margin-left: -15%;
+}
+
 .btn-danger {
     font-size: 12px;
     padding: 0px 5px 0px 5px;

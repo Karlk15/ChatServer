@@ -17,6 +17,7 @@ export class RoomListComponent implements OnInit {
 
   constructor(private chatService: ChatService, private router: Router, private toastrService: ToastrService, toastrConfig: ToastrConfig) {
       toastrConfig.timeOut = 1000;
+      toastrConfig.maxOpened = 0;
    }
 
   ngOnInit() {
