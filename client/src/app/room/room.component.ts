@@ -33,12 +33,9 @@ export class RoomComponent implements OnInit {
     this.roomName = this.route.snapshot.params['roomName'];
 
     this.chatService.getJoinedUsersInChat().subscribe( users => {
-
-      if (this.roomName === users.roomName) {
         this.users = users.userArr;
         this.roomAdmins = users.opArr;
         this.currentUser = users.currentUser;
-      }
 
       // check if currentuser is an admin
       if (this.roomAdmins.indexOf(this.currentUser) >= 0) {

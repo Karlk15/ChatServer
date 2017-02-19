@@ -39,7 +39,6 @@ io.sockets.on('connection', function (socket) {
 	//When a user joins a room this processes the request.
 	socket.on('joinroom', function (joinObj, fn) {
 		console.log("Attempting to join a room");
-		console.log(joinObj);
 
 		var room = joinObj.room;
 		var pass = joinObj.pass;
@@ -61,6 +60,7 @@ io.sockets.on('connection', function (socket) {
 			if (fn) {
 				fn(true);
 			}
+
 			io.sockets.emit("roomlist", rooms);
 			io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
 			// Update topic
@@ -206,7 +206,7 @@ io.sockets.on('connection', function (socket) {
 		console.log(socket.username + " opped " + opObj.user + " from " + opObj.room);
 		if(rooms[opObj.room].ops[socket.username] !== undefined) {
 			//Remove the user from the room roster.
-			//delete rooms[opObj.room].users[opObj.user]; <---- done by Hrafnkell
+			delete rooms[opObj.room].users[opObj.user];
 			//Op the user.
 			rooms[opObj.room].ops[opObj.user] = opObj.user;
 			//Broadcast to the room who got opped.

@@ -29,16 +29,37 @@ export class RoomListComponent implements OnInit {
 
 
   onJoinRoom(roomName: string) {
-    this.chatService.joinRoom({ room: roomName, pass: '' }).subscribe(joinInfo => {
-      if (joinInfo.success === true) {
-        this.joinFailed = false;
-        this.router.navigate(['/room', roomName]);
+    if (roomName !== undefined || this.newRoomName !== undefined) {
+      let roomInfo: any;
+
+      if(roomName === undefined){
+        roomInfo = {
+          room: this.newRoomName,
+          pass: ''
+        };
       } else {
-        // TODO popup stating why you cannot enter room
-        this.joinFailed = true;
-        this.joinFailReason = joinInfo.noJoinReason;
+        roomInfo = {
+          room: roomName,
+          pass: ''
+        };
       }
-    });
+
+
+      this.chatService.joinRoom(roomInfo).subscribe(joinInfo => {
+        if (joinInfo.success === true) {
+          this.joinFailed = false;
+          this.router.navigate(['/room', roomInfo.room]);
+        } else {
+          // TODO popup stating why you cannot enter room
+          this.joinFailed = true;
+          this.joinFailReason = joinInfo.noJoinReason;
+        }
+      });
+      this.newRoomName = undefined;
+    } else {
+      // TOESTER
+    }
+
   }
 
   onlogOut() {
@@ -46,19 +67,6 @@ export class RoomListComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  onNewRoom() {
-    if (this.newRoomName === undefined) {
-      console.log('room name invalid');
-    } else {
-      this.chatService.addRoom(this.newRoomName).subscribe(succeeded => {
-        if (succeeded === true) {
-          this.onJoinRoom(this.newRoomName);
-          this.router.navigate(['room', this.newRoomName]);
-        }
-      });
-    }
-
-  }
 
 
 }

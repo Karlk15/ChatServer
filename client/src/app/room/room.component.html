@@ -16,6 +16,14 @@
 </div>
 <div class="row">
   <div class="col-md-3">
+    <p id="userlistHeader">Active admins</p>
+    <ul id="userlistID" style="list-style-type:none">
+      <li id="userID" *ngFor='let admin of roomAdmins'>
+          {{admin}}
+          <button *ngIf="isAdmin" class="btn btn-warning" (click)="onDeOpUser(admin)">DeOP</button>
+          <button id="sendMessage" class="btn btn-danger" (click)="showChildModal(); getPrvtSendToUser(user)">Private</button>
+      </li>
+    </ul>
   </div>
   <div class="col-md-6 center-block">
     <div #scrollMe style="overflow: scroll; height: xyz;" id="chatBox">
@@ -37,7 +45,6 @@
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onKickUser(user)">Kick</button>
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onBanUser(user)">Ban</button>
             <button *ngIf="isAdmin" class="btn btn-success" (click)="onOpUser(user)">MakeOP</button>
-            <button *ngIf="isAdmin" class="btn btn-warning" (click)="onDeOpUser(user)">DeOP</button>
             <button id="sendMessage" class="btn btn-danger" (click)="showChildModal(); getPrvtSendToUser(user)">Private</button>
         </li>
       </ul>

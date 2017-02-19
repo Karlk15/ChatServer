@@ -60,18 +60,6 @@ export class ChatService {
     return observable;
   }
 
-  addRoom(roomName: string): Observable<boolean> {
-    const observable = new Observable(observer => {
-      // TODO validate roomName
-      const param = {
-        room: roomName
-      };
-      this.socket.emit('joinroom', param, function(a, b) {
-        observer.next(a);
-      });
-    });
-    return observable;
-  }
 
   leaveRoom(roomName: string) {
     const observable = new Observable(observer => {
@@ -109,7 +97,10 @@ export class ChatService {
           roomName: room
         };
 
-        observer.next(usersInfo);
+        if(this.currentRoom === room){
+          observer.next(usersInfo);
+        }
+
       });
 
     });
