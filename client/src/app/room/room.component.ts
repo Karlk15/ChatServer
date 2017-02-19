@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-room',
@@ -17,13 +18,12 @@ export class RoomComponent implements OnInit {
   private currentUser: string;
   isAdmin: boolean;
   newPrivateMessage: string;
-  privateMessage: string;
-  privateMessageSent: boolean;
 
 
   constructor(private chatService: ChatService,
     private router: Router,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute,
+    private toastrService: ToastrService) {}
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
@@ -48,7 +48,7 @@ export class RoomComponent implements OnInit {
     });
 
     this.chatService.updatePrivateChat().subscribe(info => {
-      this.privateMessage = info;
+      this.toastrService.success(info.msg , info.nick);
     });
 
     this.scrollToBottom();
@@ -83,12 +83,8 @@ export class RoomComponent implements OnInit {
   }
 
   onSendPrvtMessage(sendTo: string) {
-    if (this.newMessage !== undefined && sendTo !== this.currentUser) {
-      this.chatService.sendPrvtMessage({ nick: sendTo, message: this.newPrivateMessage}).subscribe( succeeded => {
-        if (succeeded) {
-          this.privateMessageSent = true;
-        }
-      });
+    if (this.newPrivateMessage !== undefined && sendTo !== this.currentUser) {
+      this.chatService.sendPrvtMessage({ nick: sendTo, message: this.newPrivateMessage}).subscribe();
       this.newPrivateMessage = undefined;
     }
     this.scrollToBottom();
