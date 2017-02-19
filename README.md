@@ -13,9 +13,9 @@
 
 ## To test TsLint enter cmd in /client:
 
-> $grunt test 
- 
-or 
+> $grunt
+
+or
  
 > $grunt tslint
 
