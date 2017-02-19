@@ -123,6 +123,16 @@ export class ChatService {
     return observable;
   }
 
+  sendPrvtMessage(messageInfo: any): Observable<boolean> {
+    const observable = new Observable(observer => {
+      this.socket.emit('privatemsg', messageInfo, succeeded => {
+        observer.next(succeeded);
+      });
+    });
+
+    return observable;
+  }
+
   opUser(opInfo: any): Observable<boolean> {
     const observable = new Observable(observer => {
       this.socket.emit('op', opInfo, succeeded => {
@@ -152,6 +162,22 @@ export class ChatService {
         if (this.currentRoom === roomName) {
           observer.next(chatInfo);
         }
+      });
+    });
+
+    return observable;
+  }
+
+  updatePrivateChat(): Observable<any> {
+    const observable = new Observable(observer => {
+      this.socket.on('recv_privatemsg', (user, message) => {
+
+        const chatInfo = {
+          nick: user,
+          msg: message
+        };
+
+        observer.next(chatInfo);
       });
     });
 
