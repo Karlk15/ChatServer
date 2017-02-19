@@ -5,8 +5,9 @@
     <div #scrollMe style="overflow: scroll; height: xyz;" id="chatBox">
       <ul id="chatList" style="list-style-type:none">
         <li id="chatItem" *ngFor='let message of messageInfo'>
-          <p>{{message.message}}</p>
+          <p>[{{message.nick}}] : {{message.message}}</p>
         </li>
+        <p *ngIf="privateMessageSent">{{privateMessage}}</p>
       </ul>
     </div>
     <textarea id="chatInput" [(ngModel)]="newMessage" placeholder="Enter new message"></textarea>
@@ -22,6 +23,7 @@
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onBanUser(user)">Ban</button>
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onOpUser(user)">MakeOP</button>
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onDeOpUser(user)">DeOP</button>
+            <button id="sendMessage" class="btn btn-danger">Private</button>
         </li>
       </ul>
   </div>

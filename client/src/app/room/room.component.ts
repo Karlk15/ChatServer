@@ -16,11 +16,15 @@ export class RoomComponent implements OnInit {
   roomAdmins: string[];
   private currentUser: string;
   isAdmin: boolean;
+  newPrivateMessage: string;
+  privateMessage: string;
+  privateMessageSent: boolean;
 
 
   constructor(private chatService: ChatService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {}
+
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
 
@@ -33,6 +37,7 @@ export class RoomComponent implements OnInit {
       if (this.roomAdmins.indexOf(this.currentUser) >= 0) {
         this.isAdmin = true;
       } else {
+        // put to false so we can deop a previous admin
         this.isAdmin = false;
       }
 
@@ -40,6 +45,10 @@ export class RoomComponent implements OnInit {
 
     this.chatService.updateChat().subscribe(info => {
       this.messageInfo = info.msg;
+    });
+
+    this.chatService.updatePrivateChat().subscribe(info => {
+      this.privateMessage = info;
     });
 
     this.scrollToBottom();
@@ -57,6 +66,7 @@ export class RoomComponent implements OnInit {
         this.router.navigate(['rooms']);
       }
     });
+
   }
 
   onLeaveRoom() {
@@ -66,8 +76,20 @@ export class RoomComponent implements OnInit {
 
   onSendMessage() {
     if (this.newMessage !== undefined) {
-      this.chatService.sendMessage({ roomName: this.roomName, msg: '[' + this.currentUser + ']: ' + this.newMessage }).subscribe();
+      this.chatService.sendMessage({ roomName: this.roomName, msg: this.newMessage }).subscribe();
       this.newMessage = undefined;
+    }
+    this.scrollToBottom();
+  }
+
+  onSendPrvtMessage(sendTo: string) {
+    if (this.newMessage !== undefined && sendTo !== this.currentUser) {
+      this.chatService.sendPrvtMessage({ nick: sendTo, message: this.newPrivateMessage}).subscribe( succeeded => {
+        if (succeeded) {
+          this.privateMessageSent = true;
+        }
+      });
+      this.newPrivateMessage = undefined;
     }
     this.scrollToBottom();
   }
@@ -111,5 +133,6 @@ export class RoomComponent implements OnInit {
   onDeOpUser(opUser: string) {
     this.chatService.deOpUser({user: opUser, room: this.roomName}).subscribe();
   }
+
 
 }
