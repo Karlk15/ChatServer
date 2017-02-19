@@ -25,7 +25,6 @@ export class RoomComponent implements OnInit {
     this.roomName = this.route.snapshot.params['roomName'];
 
     this.chatService.getJoinedUsersInChat().subscribe( users => {
-      console.log(users.userArr);
       this.users = users.userArr;
       this.roomAdmins = users.opArr;
       this.currentUser = users.currentUser;
@@ -33,6 +32,8 @@ export class RoomComponent implements OnInit {
       // check if currentuser is an admin
       if (this.roomAdmins.indexOf(this.currentUser) >= 0) {
         this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
       }
 
     });
@@ -105,6 +106,10 @@ export class RoomComponent implements OnInit {
 
   onOpUser(opUser: string) {
     this.chatService.opUser({user: opUser, room: this.roomName}).subscribe();
+  }
+
+  onDeOpUser(opUser: string) {
+    this.chatService.deOpUser({user: opUser, room: this.roomName}).subscribe();
   }
 
 }
