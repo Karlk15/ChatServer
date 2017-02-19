@@ -69,6 +69,20 @@
     margin-left: -12%;
 }
 
+#privatechatInput {
+    width: 350px;
+    max-width: 350px;
+    height: 30px;
+    margin-left: 10%;
+    border-radius: 12px;
+    text-indent: 5px;
+}
+
+#privatechatInput:focus {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
 .btn-danger {
     font-size: 12px;
     padding: 0px 5px 0px 5px;
@@ -86,3 +100,4 @@
     padding: 0px 5px 0px 5px;
     border-radius: 12px;
 }
+

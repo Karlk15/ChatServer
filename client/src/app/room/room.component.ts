@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
   selector: 'app-room',
@@ -9,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class RoomComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('childModal') public childModal: ModalDirective;
   roomName: string;
   messageInfo: any[];
   newMessage: string;
@@ -19,6 +21,7 @@ export class RoomComponent implements OnInit {
   newPrivateMessage: string;
   privateMessage: string;
   privateMessageSent: boolean;
+  sendPrvtToUser: string;
 
 
   constructor(private chatService: ChatService,
@@ -49,6 +52,7 @@ export class RoomComponent implements OnInit {
 
     this.chatService.updatePrivateChat().subscribe(info => {
       this.privateMessage = info;
+      console.log(this.privateMessageSent);
     });
 
     this.scrollToBottom();
@@ -82,11 +86,12 @@ export class RoomComponent implements OnInit {
     this.scrollToBottom();
   }
 
-  onSendPrvtMessage(sendTo: string) {
-    if (this.newMessage !== undefined && sendTo !== this.currentUser) {
-      this.chatService.sendPrvtMessage({ nick: sendTo, message: this.newPrivateMessage}).subscribe( succeeded => {
+  onSendPrvtMessage() {
+    if (this.newPrivateMessage !== undefined && this.sendPrvtToUser !== this.currentUser) {
+      this.chatService.sendPrvtMessage({ nick: this.sendPrvtToUser, message: this.newPrivateMessage}).subscribe( succeeded => {
         if (succeeded) {
           this.privateMessageSent = true;
+          this.hideChildModal();
         }
       });
       this.newPrivateMessage = undefined;
@@ -134,5 +139,16 @@ export class RoomComponent implements OnInit {
     this.chatService.deOpUser({user: opUser, room: this.roomName}).subscribe();
   }
 
+  getPrvtSendToUser(User: string) {
+    this.sendPrvtToUser = User;
+  }
+
+  public showChildModal(): void {
+    this.childModal.show();
+  }
+
+  public hideChildModal(): void {
+    this.childModal.hide();
+  }
 
 }
