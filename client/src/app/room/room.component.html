@@ -19,9 +19,13 @@
     <p id="userlistHeader">Active admins</p>
     <ul id="userlistID" style="list-style-type:none">
       <li id="userID" *ngFor='let admin of roomAdmins'>
-          {{admin}}
-          <button *ngIf="isAdmin" class="btn btn-warning" (click)="onDeOpUser(admin)">DeOP</button>
-          <button id="sendMessage" class="btn btn-danger" (click)="showChildModal(); getPrvtSendToUser(user)">Private</button>
+        <span dropdown>
+          <a href id="simple-dropdown" dropdownToggle>{{admin}}</a>
+          <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+            <li><a class="dropdown-item" (click)="showChildModal(); getPrvtSendToUser(admin)">Private message</a></li>
+            <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onDeOpUser(admin)">Demote from Op</a></li>
+          </ul>
+        </span>
       </li>
     </ul>
   </div>
