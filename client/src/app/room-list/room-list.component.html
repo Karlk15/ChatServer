@@ -2,7 +2,7 @@
     <div class="col-md-3">
         <ul style="list-style-type:none">
           <li><input id="newroomID" [(ngModel)]='newRoomName' placeholder="Enter new room name"/></li>
-          <li><button id="newroombuttonID" class="btn btn-primary" (click)='onNewRoom()'>Create new room</button></li>
+          <li><button id="newroombuttonID" class="btn btn-primary" (click)='onJoinRoom(undefined)'>Create new room</button></li>
           <li><button id="logoutID" class="btn btn-primary" (click)="onlogOut()">Log out</button></li>
         </ul>
     </div>
@@ -21,4 +21,3 @@
         </ul>
     </div>
 </div>
-

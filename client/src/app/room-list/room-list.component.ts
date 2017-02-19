@@ -14,7 +14,6 @@ export class RoomListComponent implements OnInit {
   users: string[];
   newRoomName: string;
   joinFailReason: string;
-  joinFailed = false;
 
   constructor(private chatService: ChatService, private router: Router, private toastrService: ToastrService, toastrConfig: ToastrConfig) {
       toastrConfig.timeOut = 2000;
@@ -33,16 +32,35 @@ export class RoomListComponent implements OnInit {
 
 
   onJoinRoom(roomName: string) {
-    this.chatService.joinRoom({ room: roomName, pass: '' }).subscribe(joinInfo => {
-      if (joinInfo.success === true) {
-        this.joinFailed = false;
-        this.router.navigate(['/room', roomName]);
+    if (roomName !== undefined || this.newRoomName !== undefined) {
+      let roomInfo: any;
+
+      if (roomName === undefined) {
+        roomInfo = {
+          room: this.newRoomName,
+          pass: ''
+        };
       } else {
-        this.joinFailed = true;
-        this.joinFailReason = joinInfo.noJoinReason;
-        this.toastrService.warning('Reason: ' + this.joinFailReason, 'Cannot join room');
+        roomInfo = {
+          room: roomName,
+          pass: ''
+        };
+
       }
-    });
+
+      this.chatService.joinRoom(roomInfo).subscribe(joinInfo => {
+        if (joinInfo.success === true) {
+          this.router.navigate(['/room', roomInfo.room]);
+        } else {
+          this.joinFailReason = joinInfo.noJoinReason;
+          this.toastrService.warning('Reason: ' + this.joinFailReason, 'Cannot join room');
+        }
+      });
+      this.newRoomName = undefined;
+    } else {
+      this.toastrService.warning('Please specify a room name', 'Invalid Name');
+    }
+
   }
 
   onlogOut() {
@@ -50,19 +68,6 @@ export class RoomListComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  onNewRoom() {
-    if (this.newRoomName === undefined) {
-      console.log('room name invalid');
-    } else {
-      this.chatService.addRoom(this.newRoomName).subscribe(succeeded => {
-        if (succeeded === true) {
-          this.onJoinRoom(this.newRoomName);
-          this.router.navigate(['room', this.newRoomName]);
-        }
-      });
-    }
-
-  }
 
 
 }
