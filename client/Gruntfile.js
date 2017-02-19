@@ -8,7 +8,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: ['dist/*.js','dist/!uglify.js'],
-        dest: 'dist/concat.js'
+        dest: 'dist/conCatAndUglify/concat.js'
       }
     },
     uglify: {
@@ -19,7 +19,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'dist/uglify.js': ['dist/*.js']
+          'dist/conCatAndUglify/uglify.js': ['dist/*.js']
         }
       }
     },
@@ -38,5 +38,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-tslint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.registerTask('test', ['tslint']);
-  grunt.registerTask('default', ['tslint', 'uglify','concat']);
+  grunt.registerTask('default', ['tslint']);
 };
