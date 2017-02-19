@@ -1,3 +1,19 @@
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Private message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <textarea id="privatechatInput" [(ngModel)]="newPrivateMessage" placeholder="Enter private message"></textarea>
+        <button id="sendMessage" class="btn btn-primary" (click)="onSendPrvtMessage(user); hideChildModal()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-3">
   </div>
@@ -21,9 +37,9 @@
           {{user}}
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onKickUser(user)">Kick</button>
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onBanUser(user)">Ban</button>
-            <button *ngIf="isAdmin" class="btn btn-danger" (click)="onOpUser(user)">MakeOP</button>
-            <button *ngIf="isAdmin" class="btn btn-danger" (click)="onDeOpUser(user)">DeOP</button>
-            <button id="sendMessage" class="btn btn-danger">Private</button>
+            <button *ngIf="isAdmin" class="btn btn-success" (click)="onOpUser(user)">MakeOP</button>
+            <button *ngIf="isAdmin" class="btn btn-warning" (click)="onDeOpUser(user)">DeOP</button>
+            <button id="sendMessage" class="btn btn-danger" (click)="showChildModal(); getPrvtSendToUser(user)">Private</button>
         </li>
       </ul>
   </div>
