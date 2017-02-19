@@ -32,7 +32,7 @@ export class RoomListComponent implements OnInit {
 
 
   onJoinRoom(roomName: string) {
-    if (roomName !== undefined || this.newRoomName !== undefined) {
+    if (roomName !== undefined || !(this.isEmptyOrSpaces(this.newRoomName))) {
       let roomInfo: any;
 
       if (roomName === undefined) {
@@ -62,6 +62,7 @@ export class RoomListComponent implements OnInit {
       this.newRoomName = undefined;
     } else {
       try {
+          this.newRoomName = "";
           this.toastrService.warning('Please specify a room name', 'Invalid Name');
       } catch ( err ) {
       }
@@ -72,6 +73,10 @@ export class RoomListComponent implements OnInit {
   onlogOut() {
     this.chatService.logOut().subscribe();
     this.router.navigate(['/login']);
+  }
+
+  isEmptyOrSpaces(str){
+    return str === null || str.match(/^ *$/) !== null;
   }
 
 

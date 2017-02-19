@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    if (this.userName !== undefined) {
+    if (this.userName !== undefined && !(this.isEmptyOrSpaces(this.userName))) {
       this.chatService.login(this.userName).subscribe(succeeded => {
         this.loginFailed = !succeeded;
         if (succeeded === true) {
@@ -34,7 +34,11 @@ export class LoginComponent implements OnInit {
       });
     } else {
       this.loginFailed = true;
-      this.toastrService.error('Current username is taken', 'Error!');
+      this.toastrService.error('Current username is unavailable', 'Error!');
     }
+  }
+
+  isEmptyOrSpaces(str) {
+    return str === null || str.match(/^ *$/) !== null;
   }
 }
