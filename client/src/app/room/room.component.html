@@ -9,7 +9,7 @@
         </li>
       </ul>
     </div>
-    <textarea id="chatInput" [(ngModel)]="newPrivateMessage" placeholder="Enter new message"></textarea>
+    <textarea id="chatInput" [(ngModel)]="newMessage" placeholder="Enter new message"></textarea>
     <button id="sendMessage" class="btn btn-primary" (click)="onSendMessage()">Send</button>
     <button id="leaveID" class="btn btn-primary" (click)="onLeaveRoom()">Leave Room</button>
   </div>
@@ -22,7 +22,7 @@
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onBanUser(user)">Ban</button>
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onOpUser(user)">MakeOP</button>
             <button *ngIf="isAdmin" class="btn btn-danger" (click)="onDeOpUser(user)">DeOP</button>
-            <button id="sendMessage" class="btn btn-danger" (click)="onSendPrvtMessage(user)">Private</button>
+            <button id="sendMessage" class="btn btn-danger">Private</button>
         </li>
       </ul>
   </div>
