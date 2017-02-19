@@ -62,7 +62,7 @@ export class RoomListComponent implements OnInit {
       this.newRoomName = undefined;
     } else {
       try {
-          this.newRoomName = "";
+          this.newRoomName = '';
           this.toastrService.warning('Please specify a room name', 'Invalid Name');
       } catch ( err ) {
       }
@@ -75,7 +75,7 @@ export class RoomListComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  isEmptyOrSpaces(str){
+  isEmptyOrSpaces(str) {
     return str === null || str.match(/^ *$/) !== null;
   }
 
