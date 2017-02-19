@@ -12,6 +12,7 @@ import { RoomComponent } from './room/room.component';
 import { ChatService } from './chat.service';
 import { ButtonsModule } from 'ng2-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { ModalModule } from 'ng2-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     HttpModule,
     ButtonsModule.forRoot(),
+    ModalModule.forRoot(),
     RouterModule.forRoot([{
       path: '',
       redirectTo: 'login',

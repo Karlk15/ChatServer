@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@ang
 import { ChatService } from '../chat.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ModalDirective } from 'ng2-bootstrap/modal';
 
 @Component({
   selector: 'app-room',
@@ -10,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RoomComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('childModal') public childModal: ModalDirective;
   roomName: string;
   messageInfo: any[];
   newMessage: string;
@@ -18,6 +20,8 @@ export class RoomComponent implements OnInit {
   private currentUser: string;
   isAdmin: boolean;
   newPrivateMessage: string;
+  sendPrvtToUser: string;
+
 
 
   constructor(private chatService: ChatService,
@@ -29,9 +33,12 @@ export class RoomComponent implements OnInit {
     this.roomName = this.route.snapshot.params['roomName'];
 
     this.chatService.getJoinedUsersInChat().subscribe( users => {
-      this.users = users.userArr;
-      this.roomAdmins = users.opArr;
-      this.currentUser = users.currentUser;
+
+      if (this.roomName === users.roomName) {
+        this.users = users.userArr;
+        this.roomAdmins = users.opArr;
+        this.currentUser = users.currentUser;
+      }
 
       // check if currentuser is an admin
       if (this.roomAdmins.indexOf(this.currentUser) >= 0) {
@@ -48,7 +55,7 @@ export class RoomComponent implements OnInit {
     });
 
     this.chatService.updatePrivateChat().subscribe(info => {
-      this.toastrService.success(info.msg , info.nick);
+      this.toastrService.info(info.msg , info.nick);
     });
 
     this.scrollToBottom();
@@ -82,9 +89,13 @@ export class RoomComponent implements OnInit {
     this.scrollToBottom();
   }
 
-  onSendPrvtMessage(sendTo: string) {
-    if (this.newPrivateMessage !== undefined && sendTo !== this.currentUser) {
-      this.chatService.sendPrvtMessage({ nick: sendTo, message: this.newPrivateMessage}).subscribe();
+  onSendPrvtMessage() {
+    if (this.newPrivateMessage !== undefined && this.sendPrvtToUser !== this.currentUser) {
+      this.chatService.sendPrvtMessage({ nick: this.sendPrvtToUser, message: this.newPrivateMessage}).subscribe( succeeded => {
+        if (succeeded) {
+          this.hideChildModal();
+        }
+      });
       this.newPrivateMessage = undefined;
     }
     this.scrollToBottom();
@@ -130,5 +141,16 @@ export class RoomComponent implements OnInit {
     this.chatService.deOpUser({user: opUser, room: this.roomName}).subscribe();
   }
 
+  getPrvtSendToUser(User: string) {
+    this.sendPrvtToUser = User;
+  }
+
+  public showChildModal(): void {
+    this.childModal.show();
+  }
+
+  public hideChildModal(): void {
+    this.childModal.hide();
+  }
 
 }

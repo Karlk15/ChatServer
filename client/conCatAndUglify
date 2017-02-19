@@ -1,6 +1,4 @@
 #!/bin/bash
 set -e
-ng build
-grunt uglify
-grunt concat
+  ng build -prod
 exit 0
