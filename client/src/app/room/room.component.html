@@ -1,50 +1,50 @@
 <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title pull-left">Private message</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
-          <span aria-hidden="true">&times;</span>
-        </button>
+   <div class="modal-dialog modal-md">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 class="modal-title pull-left">Private message</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <textarea id="privatechatInput" [(ngModel)]="newPrivateMessage" placeholder="Enter private message"></textarea>
+            <button id="sendMessage" class="btn btn-primary" (click)="onSendPrvtMessage(user)">Send</button>
+         </div>
       </div>
-      <div class="modal-body">
-        <textarea id="privatechatInput" [(ngModel)]="newPrivateMessage" placeholder="Enter private message"></textarea>
-        <button id="sendMessage" class="btn btn-primary" (click)="onSendPrvtMessage(user)">Send</button>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
 <div class="row">
-  <div id="adminlistID" class="col-md-3">
-    <p id="userlistHeader">Active admins</p>
-    <ul id="userlistID" style="list-style-type:none">
-      <li id="adminID" *ngFor='let admin of roomAdmins'>
-        <span dropdown>
-          <a href id="simple-dropdown" dropdownToggle>{{admin}}</a>
-          <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
-            <li><a class="dropdown-item" (click)="showChildModal(admin); getPrvtSendToUser(admin)">Private message</a></li>
-            <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onDeOpUser(admin)">Demote from Op</a></li>
-          </ul>
-        </span>
-      </li>
-    </ul>
-  </div>
-  <div class="col-md-6 center-block">
-    <div class="">
-      <p>{{topic}}</p>
-    </div>
-    <div #scrollMe style="overflow: scroll; height: xyz;" id="chatBox">
-      <ul id="chatList" style="list-style-type:none">
-        <li id="chatItem" *ngFor='let message of messageInfo'>
-          <p>[{{message.nick}}] : {{message.message}}</p>
-        </li>
+   <div id="adminlistID" class="col-md-3">
+      <p id="userlistHeader">Active admins</p>
+      <ul id="userlistID" style="list-style-type:none">
+         <li id="adminID" *ngFor='let admin of roomAdmins'>
+            <span dropdown>
+               <a href id="simple-dropdown" dropdownToggle>{{admin}}</a>
+               <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+                  <li><a class="dropdown-item" (click)="showChildModal(admin); getPrvtSendToUser(admin)">Private message</a></li>
+                  <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onDeOpUser(admin)">Demote from Op</a></li>
+               </ul>
+            </span>
+         </li>
       </ul>
-    </div>
-    <textarea id="chatInput" [(ngModel)]="newMessage" placeholder="Enter new message"></textarea>
-    <button id="sendMessage" class="btn btn-primary" (click)="onSendMessage()">Send</button>
-    <button id="leaveID" class="btn btn-primary" (click)="onLeaveRoom()">Leave Room</button>
-  </div>
-  <div class="col-md-3">
+   </div>
+   <div class="col-md-6 center-block">
+      <div class="">
+         <p>{{topic}}</p>
+      </div>
+      <div #scrollMe style="overflow: scroll; height: xyz;" id="chatBox">
+         <ul id="chatList" style="list-style-type:none">
+            <li id="chatItem" *ngFor='let message of messageInfo'>
+               <p>[{{message.nick}}] : {{message.message}}</p>
+            </li>
+         </ul>
+      </div>
+      <textarea id="chatInput" [(ngModel)]="newMessage" placeholder="Enter new message"></textarea>
+      <button id="sendMessage" class="btn btn-primary" (click)="onSendMessage()">Send</button>
+      <button id="leaveID" class="btn btn-primary" (click)="onLeaveRoom()">Leave Room</button>
+   </div>
+   <div class="col-md-3">
       <p id="userlistHeader">Active users</p>
       <ul id="userlistID" style="list-style-type:none">
         <li id="userID" *ngFor='let user of users'>
@@ -59,5 +59,5 @@
           </span>
         </li>
       </ul>
-  </div>
+   </div>
 </div>
