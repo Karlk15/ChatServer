@@ -23,6 +23,7 @@ export class RoomComponent implements OnInit {
   newPrivateMessage: string;
   sendPrvtToUser: string;
   topic: string;
+  newTopic: string;
 
 
   constructor(
@@ -91,6 +92,7 @@ export class RoomComponent implements OnInit {
     });
 
     this.chatService.updateTopic().subscribe( newTopic => {
+      // shitty fix but it works...
       if (newTopic !== 'No topic has been set for room..') {
         this.topic = newTopic;
       }
@@ -171,8 +173,9 @@ export class RoomComponent implements OnInit {
   }
 
   onSetTopic() {
-    if (this.topic !== undefined) {
-      this.chatService.setTopic({topic: this.topic, room: this.roomName}).subscribe();
+    if (this.newTopic !== undefined) {
+      this.chatService.setTopic({topic: this.newTopic, room: this.roomName}).subscribe();
+      this.newTopic = '';
     }
   }
 
