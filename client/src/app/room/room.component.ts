@@ -161,9 +161,16 @@ export class RoomComponent implements OnInit {
     this.chatService.opUser({ user: opUser, room: this.roomName }).subscribe();
   }
 
-  onDeOpUser(opUser: string) {
-    if (this.currentUser !== opUser) {
-      this.chatService.deOpUser({ user: opUser, room: this.roomName }).subscribe();
+  onDeOpUser(deOpUser: string) {
+    if (this.currentUser !== deOpUser) {
+      this.chatService.deOpUser({ user: deOpUser, room: this.roomName }).subscribe();
+    } else {
+
+      try {
+        const warningConfig: ToastConfig = { timeOut: 2000, extendedTimeOut: 2000 };
+        this.toastrService.warning('Cannot de-op yourself', '', warningConfig);
+      } catch (err) {}
+
     }
 
   }
@@ -186,8 +193,7 @@ export class RoomComponent implements OnInit {
       try {
         const warningConfig: ToastConfig = { timeOut: 2000, extendedTimeOut: 2000 };
         this.toastrService.warning('Cannot send private message to yourself', '', warningConfig);
-      } catch (err) {
-      }
+      } catch (err) {}
     }
   }
 

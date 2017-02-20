@@ -64,7 +64,7 @@ io.sockets.on('connection', function (socket) {
 			io.sockets.emit("roomlist", rooms);
 			io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
 			// Update topic
-			//socket.emit('updatetopic', room, rooms[room].topic, socket.username);
+			//socket.emit('updatetopic', room, rooms[room].topic, socket.username); <----done by Hrafnkell
 			io.sockets.emit('servermessage', "join", room, socket.username);
 		}
 		else {
