@@ -15,10 +15,14 @@ export class RoomListComponent implements OnInit {
   newRoomName: string;
   joinFailReason: string;
 
-  constructor(private chatService: ChatService, private router: Router, private toastrService: ToastrService, toastrConfig: ToastrConfig) {
-      toastrConfig.timeOut = 1000;
-      toastrConfig.maxOpened = 0;
-   }
+  constructor(
+    private chatService: ChatService,
+    private router: Router,
+    private toastrService: ToastrService,
+    private toastrConfig: ToastrConfig) {
+    toastrConfig.timeOut = 1000;
+    toastrConfig.maxOpened = 0;
+  }
 
   ngOnInit() {
     this.chatService.getRoomList().subscribe(lst => {
@@ -55,15 +59,21 @@ export class RoomListComponent implements OnInit {
           this.joinFailReason = joinInfo.noJoinReason;
           try {
             this.toastrService.warning('Reason: ' + this.joinFailReason, 'Cannot join room');
-          } catch ( err ) {
+          } catch (err) {
           }
         }
       });
     } else {
       try {
+<<<<<<< HEAD
           this.newRoomName = undefined;
           this.toastrService.warning('Please specify a valid room name', 'Invalid Name');
       } catch ( err ) {
+=======
+        this.newRoomName = '';
+        this.toastrService.warning('Please specify a room name', 'Invalid Name');
+      } catch (err) {
+>>>>>>> 12f873874a329b1263e0f5636b13085ea7072f7d
       }
     }
 
