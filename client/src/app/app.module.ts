@@ -25,7 +25,7 @@ import { DropdownModule } from 'ng2-bootstrap';
   imports: [
     BrowserModule,
     CommonModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({preventDuplicates: true}),
     FormsModule,
     HttpModule,
     ButtonsModule.forRoot(),

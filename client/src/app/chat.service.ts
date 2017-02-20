@@ -68,37 +68,27 @@ export class ChatService {
     return observable;
   }
 
-  setTopic(topicInfo: any) {
+  setTopic(topicInfo: any): Observable<boolean> {
     const observable = new Observable(observer => {
       this.socket.emit('settopic', topicInfo, succeeded => {
         observer.next(succeeded);
       });
-
-      /*this.socket.on('updatetopic', (room, topic, user) => {
-        if(this.currentRoom === room){
-          observer.next(topic);
-        }
-      });*/
-
     });
     return observable;
   }
 
-  /*updateTopic() {
+  updateTopic(): Observable<string> {
     const observable = new Observable(observer => {
-      this.socket.emit('settopic', topicInfo, succeeded => {
-        observer.next(succeeded);
-      });
-
       this.socket.on('updatetopic', (room, topic, user) => {
-        if(this.currentRoom === room){
+        console.log(topic);
+        if (this.currentRoom === room) {
           observer.next(topic);
         }
       });
 
     });
     return observable;
-  }*/
+  }
 
   getAllConnectedUsers(): Observable<string[]> {
     const observable = new Observable(observer => {

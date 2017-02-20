@@ -32,7 +32,6 @@ export class RoomComponent implements OnInit {
     private toastrConfig: ToastrConfig) {
     toastrConfig.timeOut = 0;
     toastrConfig.extendedTimeOut = 0;
-    this.topic = 'No Topic';
   }
 
 
@@ -70,6 +69,10 @@ export class RoomComponent implements OnInit {
     // redirect the correct kicked user to rooms/
     this.chatService.userKicked().subscribe(info => {
       if ((info.rName === this.roomName) && (info.userKicked === this.currentUser)) {
+        try {
+          this.toastrService.warning('you have been kicked from ' + this.roomName, 'Kicked');
+        } catch (err) {
+        }
         this.router.navigate(['rooms']);
       }
     });
@@ -77,8 +80,16 @@ export class RoomComponent implements OnInit {
     // redirect the correct banned user to rooms/
     this.chatService.userBanned().subscribe(info => {
       if ((info.rName === this.roomName) && (info.userBanned === this.currentUser)) {
+        try {
+          this.toastrService.error('you have been banned from ' + this.roomName, 'Banned');
+        } catch (err) {
+        }
         this.router.navigate(['rooms']);
       }
+    });
+
+    this.chatService.updateTopic().subscribe( newTopic => {
+      this.topic = newTopic;
     });
 
   }
