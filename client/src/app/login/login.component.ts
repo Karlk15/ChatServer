@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
     private chatService: ChatService,
     private router: Router,
     private toastrService: ToastrService,
-    toastrConfig: ToastrConfig) {
+    private toastrConfig: ToastrConfig) {
     toastrConfig.positionClass = 'toast-top-right';
   }
 

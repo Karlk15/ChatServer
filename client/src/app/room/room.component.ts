@@ -24,11 +24,12 @@ export class RoomComponent implements OnInit {
   topic: string;
 
 
-  constructor(private chatService: ChatService,
+  constructor(
+    private chatService: ChatService,
     private router: Router,
     private route: ActivatedRoute,
     private toastrService: ToastrService,
-    toastrConfig: ToastrConfig) {
+    private toastrConfig: ToastrConfig) {
     toastrConfig.timeOut = 0;
     toastrConfig.extendedTimeOut = 0;
     this.topic = 'No Topic';
