@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     toastrConfig: ToastrConfig) {
-    toastrConfig.positionClass = 'toast-top-right';
+      toastrConfig.timeOut = 1000;
+      toastrConfig.maxOpened = 0;
   }
 
   ngOnInit() {
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
       });
     } else {
       this.loginFailed = true;
+      this.userName = undefined;
       this.toastrService.error('Current username is unavailable', 'Error!');
     }
   }
