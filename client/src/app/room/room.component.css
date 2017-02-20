@@ -91,6 +91,36 @@
     margin-left: -15%;
 }
 
+#topicID {
+    margin-left: 10%;
+    font-size: 24px;
+}
+
+#setTopic {
+    border-radius: 12px;
+    padding: 2px 10px 2px 8px;
+}
+
+#setTopic:focus {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
+#setTopic:hover {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
+#settopicID {
+    text-indent: 5px;
+    border-radius: 12px;
+}
+
+#settopicID:focus {
+    box-shadow: 0 0 1pt 1pt rgb(87, 164, 230);
+	outline: none;
+}
+
 .btn-danger {
     font-size: 12px;
     padding: 0px 5px 0px 5px;

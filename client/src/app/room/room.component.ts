@@ -12,6 +12,7 @@ import { ModalDirective } from 'ng2-bootstrap/modal';
 export class RoomComponent implements OnInit {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   @ViewChild('childModal') public childModal: ModalDirective;
+  @ViewChild('topicModal') public topicModal: ModalDirective;
   roomName: string;
   messageInfo: any[];
   newMessage: string;
@@ -169,9 +170,9 @@ export class RoomComponent implements OnInit {
     this.sendPrvtToUser = User;
   }
 
-  onSetTopic(topic: string) {
-    if (topic !== undefined) {
-      this.chatService.setTopic({topic: topic, room: this.roomName}).subscribe();
+  onSetTopic() {
+    if (this.topic !== undefined) {
+      this.chatService.setTopic({topic: this.topic, room: this.roomName}).subscribe();
     }
   }
 
@@ -189,6 +190,14 @@ export class RoomComponent implements OnInit {
 
   public hideChildModal(): void {
     this.childModal.hide();
+  }
+
+  public showTopicModal(): void {
+    this.topicModal.show();
+  }
+
+  public hideTopicModal(): void {
+    this.topicModal.hide();
   }
 
 }
