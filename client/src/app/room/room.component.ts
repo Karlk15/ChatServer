@@ -155,6 +155,14 @@ export class RoomComponent implements OnInit {
     this.sendPrvtToUser = User;
   }
 
+  onSetTopic(topic: string) {
+    if (topic !== undefined) {
+      this.chatService.setTopic({topic: topic, room: this.roomName}).subscribe( newTopic => {
+        console.log(newTopic);
+      });
+    }
+  }
+
   public showChildModal(Admin: string): void {
     if (this.currentUser !== Admin) {
       this.childModal.show();

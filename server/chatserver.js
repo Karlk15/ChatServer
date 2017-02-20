@@ -292,6 +292,7 @@ io.sockets.on('connection', function (socket) {
 
 	//Sets topic for room.
 	socket.on('settopic', function (topicObj, fn) {
+		console.log(topicObj);
 		//If user is OP
 		if(rooms[topicObj.room].ops[socket.username] !== undefined) {
 			rooms[topicObj.room].setTopic(topicObj.topic);

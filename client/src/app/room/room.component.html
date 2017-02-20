@@ -15,31 +15,34 @@
    </div>
 </div>
 <div class="row">
-   <div id="adminlistID" class="col-md-3">
-      <p id="userlistHeader">Active admins</p>
-      <ul id="userlistID" style="list-style-type:none">
-         <li id="adminID" *ngFor='let admin of roomAdmins'>
-            <span dropdown>
-               <a href id="simple-dropdown" dropdownToggle>{{admin}}</a>
-               <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
-                  <li><a class="dropdown-item" (click)="showChildModal(admin); getPrvtSendToUser(admin)">Private message</a></li>
-                  <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onDeOpUser(admin)">Demote from Op</a></li>
-               </ul>
-            </span>
-         </li>
+  <div id="adminlistID" class="col-md-3">
+    <p id="userlistHeader">Active admins</p>
+    <ul id="userlistID" style="list-style-type:none">
+      <li id="adminID" *ngFor='let admin of roomAdmins'>
+        <span dropdown>
+          <a href id="simple-dropdown" dropdownToggle>{{admin}}</a>
+          <ul class="dropdown-menu" dropdownMenu aria-labelledby="simple-dropdown">
+            <li><a class="dropdown-item" (click)="showChildModal(admin); getPrvtSendToUser(admin)">Private message</a></li>
+            <li *ngIf="isAdmin"><a class="dropdown-item" (click)="onDeOpUser(admin)">Demote from Op</a></li>
+          </ul>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-6 center-block">
+    <p>{{topic}}</p>
+    <div *ngIf='isAdmin'>
+      <input id="" [(ngModel)]="topic" placeholder="Enter new topic"/>
+      <button id="sendMessage" class="btn btn-primary" (click)="onSetTopic(topic)">Set</button>
+    </div>
+
+    <div #scrollMe style="overflow: scroll; height: xyz;" id="chatBox">
+      <ul id="chatList" style="list-style-type:none">
+        <li id="chatItem" *ngFor='let message of messageInfo'>
+          <p>[{{message.nick}}] : {{message.message}}</p>
+        </li>
       </ul>
-   </div>
-   <div class="col-md-6 center-block">
-      <div class="">
-         <p>{{topic}}</p>
-      </div>
-      <div #scrollMe style="overflow: scroll; height: xyz;" id="chatBox">
-         <ul id="chatList" style="list-style-type:none">
-            <li id="chatItem" *ngFor='let message of messageInfo'>
-               <p>[{{message.nick}}] : {{message.message}}</p>
-            </li>
-         </ul>
-      </div>
+    </div>
       <textarea id="chatInput" [(ngModel)]="newMessage" placeholder="Enter new message"></textarea>
       <button id="sendMessage" class="btn btn-primary" (click)="onSendMessage()">Send</button>
       <button id="leaveID" class="btn btn-primary" (click)="onLeaveRoom()">Leave Room</button>

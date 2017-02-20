@@ -65,15 +65,9 @@ export class RoomListComponent implements OnInit {
       });
     } else {
       try {
-<<<<<<< HEAD
           this.newRoomName = undefined;
           this.toastrService.warning('Please specify a valid room name', 'Invalid Name');
       } catch ( err ) {
-=======
-        this.newRoomName = '';
-        this.toastrService.warning('Please specify a room name', 'Invalid Name');
-      } catch (err) {
->>>>>>> 12f873874a329b1263e0f5636b13085ea7072f7d
       }
     }
 
