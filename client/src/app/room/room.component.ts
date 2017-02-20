@@ -37,6 +37,7 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.roomName = this.route.snapshot.params['roomName'];
+    const warningConfig: ToastConfig = { timeOut: 2000, extendedTimeOut: 2000 };
 
     this.chatService.getJoinedUsersInChat().subscribe(users => {
       this.users = users.userArr;
@@ -70,7 +71,7 @@ export class RoomComponent implements OnInit {
     this.chatService.userKicked().subscribe(info => {
       if ((info.rName === this.roomName) && (info.userKicked === this.currentUser)) {
         try {
-          this.toastrService.warning('you have been kicked from ' + this.roomName, 'Kicked');
+          this.toastrService.warning('you have been kicked from ' + this.roomName, 'Kicked', warningConfig);
         } catch (err) {
         }
         this.router.navigate(['rooms']);
@@ -81,7 +82,7 @@ export class RoomComponent implements OnInit {
     this.chatService.userBanned().subscribe(info => {
       if ((info.rName === this.roomName) && (info.userBanned === this.currentUser)) {
         try {
-          this.toastrService.error('you have been banned from ' + this.roomName, 'Banned');
+          this.toastrService.error('you have been banned from ' + this.roomName, 'Banned', warningConfig);
         } catch (err) {
         }
         this.router.navigate(['rooms']);
@@ -89,7 +90,9 @@ export class RoomComponent implements OnInit {
     });
 
     this.chatService.updateTopic().subscribe( newTopic => {
-      this.topic = newTopic;
+      if (newTopic !== 'No topic has been set for room..') {
+        this.topic = newTopic;
+      }
     });
 
   }
