@@ -32,6 +32,10 @@ export class LoginComponent implements OnInit {
         if (succeeded === true) {
           this.router.navigate(['/rooms']);
         }
+        else {
+          this.userName = undefined;
+          this.toastrService.error('Current username is unavailable', 'Error!');
+        }
       });
     } else {
       this.loginFailed = true;
