@@ -100,7 +100,7 @@ io.sockets.on('connection', function (socket) {
 				//Send the room information to the client.
 				io.sockets.emit('updateusers', room, rooms[room].users, rooms[room].ops);
 				socket.emit('updatechat', room, rooms[room].messageHistory);
-				//socket.emit('updatetopic', room, rooms[room].topic, socket.username);
+				socket.emit('updatetopic', room, rooms[room].topic, socket.username);
 				io.sockets.emit('servermessage', "join", room, socket.username);
 			}
 			if (fn) {

@@ -80,7 +80,6 @@ export class ChatService {
   updateTopic(): Observable<string> {
     const observable = new Observable(observer => {
       this.socket.on('updatetopic', (room, topic, user) => {
-        console.log(topic);
         if (this.currentRoom === room) {
           observer.next(topic);
         }

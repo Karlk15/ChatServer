@@ -168,9 +168,7 @@ export class RoomComponent implements OnInit {
 
   onSetTopic(topic: string) {
     if (topic !== undefined) {
-      this.chatService.setTopic({topic: topic, room: this.roomName}).subscribe( newTopic => {
-        console.log(newTopic);
-      });
+      this.chatService.setTopic({topic: topic, room: this.roomName}).subscribe();
     }
   }
 
