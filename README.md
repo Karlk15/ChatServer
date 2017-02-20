@@ -1,4 +1,9 @@
 # ChatServer
+##Global installation requirements:
+
+nodejs version 6.9.1
+https://nodejs.org/en/
+
 ### Get stated with a clean machine run this cmd in /client & /server:
 
 > $npm install
