@@ -15,10 +15,14 @@ export class RoomListComponent implements OnInit {
   newRoomName: string;
   joinFailReason: string;
 
-  constructor(private chatService: ChatService, private router: Router, private toastrService: ToastrService, toastrConfig: ToastrConfig) {
-      toastrConfig.timeOut = 1000;
-      toastrConfig.maxOpened = 0;
-   }
+  constructor(
+    private chatService: ChatService,
+    private router: Router,
+    private toastrService: ToastrService,
+    private toastrConfig: ToastrConfig) {
+    toastrConfig.timeOut = 1000;
+    toastrConfig.maxOpened = 0;
+  }
 
   ngOnInit() {
     this.chatService.getRoomList().subscribe(lst => {
@@ -32,7 +36,7 @@ export class RoomListComponent implements OnInit {
 
 
   onJoinRoom(roomName: string) {
-    if (roomName !== undefined || this.newRoomName !== undefined) {
+    if (roomName !== undefined || (this.newRoomName !== undefined && !(this.isEmptyOrSpaces(this.newRoomName)))) {
       let roomInfo: any;
 
       if (roomName === undefined) {
@@ -55,14 +59,14 @@ export class RoomListComponent implements OnInit {
           this.joinFailReason = joinInfo.noJoinReason;
           try {
             this.toastrService.warning('Reason: ' + this.joinFailReason, 'Cannot join room');
-          } catch ( err ) {
+          } catch (err) {
           }
         }
       });
-      this.newRoomName = undefined;
     } else {
       try {
-          this.toastrService.warning('Please specify a room name', 'Invalid Name');
+          this.newRoomName = undefined;
+          this.toastrService.warning('Please specify a valid room name', 'Invalid Name');
       } catch ( err ) {
       }
     }
@@ -74,6 +78,8 @@ export class RoomListComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-
+  isEmptyOrSpaces(str) {
+    return str === null || str.match(/^ *$/) !== null;
+  }
 
 }

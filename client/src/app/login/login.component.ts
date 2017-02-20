@@ -18,14 +18,15 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     toastrConfig: ToastrConfig) {
-    toastrConfig.positionClass = 'toast-top-right';
+      toastrConfig.timeOut = 1000;
+      toastrConfig.maxOpened = 0;
   }
 
   ngOnInit() {
   }
 
   onLogin() {
-    if (this.userName !== undefined) {
+    if (this.userName !== undefined && !(this.isEmptyOrSpaces(this.userName))) {
       this.chatService.login(this.userName).subscribe(succeeded => {
         this.loginFailed = !succeeded;
         if (succeeded === true) {
@@ -34,7 +35,12 @@ export class LoginComponent implements OnInit {
       });
     } else {
       this.loginFailed = true;
-      this.toastrService.error('Current username is taken', 'Error!');
+      this.userName = undefined;
+      this.toastrService.error('Current username is unavailable', 'Error!');
     }
+  }
+
+  isEmptyOrSpaces(str) {
+    return str === null || str.match(/^ *$/) !== null;
   }
 }
