@@ -28,7 +28,7 @@ export class RoomComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastrService: ToastrService,
-    toastrConfig: ToastrConfig,) {
+    toastrConfig: ToastrConfig) {
       toastrConfig.timeOut = 0;
       toastrConfig.extendedTimeOut = 0;
       this.topic = 'No Topic';
@@ -154,11 +154,18 @@ export class RoomComponent implements OnInit {
     this.sendPrvtToUser = User;
   }
 
+  onSetTopic(topic: string) {
+    if (topic !== undefined) {
+      this.chatService.setTopic({topic: topic, room: this.roomName}).subscribe( newTopic => {
+        console.log(newTopic);
+      });
+    }
+  }
+
   public showChildModal(Admin: string): void {
     if (this.currentUser !== Admin) {
       this.childModal.show();
-    }
-    else {
+    } else {
       try {
           const warningConfig: ToastConfig = {timeOut: 2000, extendedTimeOut: 2000};
           this.toastrService.warning('Cannot send private message to yourself' , '', warningConfig);

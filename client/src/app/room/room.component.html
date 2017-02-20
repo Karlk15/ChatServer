@@ -30,9 +30,12 @@
     </ul>
   </div>
   <div class="col-md-6 center-block">
-    <div class="">
-      <p>{{topic}}</p>
+    <p>{{topic}}</p>
+    <div *ngIf='isAdmin'>
+      <input id="" [(ngModel)]="topic" placeholder="Enter new topic"/>
+      <button id="sendMessage" class="btn btn-primary" (click)="onSetTopic(topic)">Set</button>
     </div>
+
     <div #scrollMe style="overflow: scroll; height: xyz;" id="chatBox">
       <ul id="chatList" style="list-style-type:none">
         <li id="chatItem" *ngFor='let message of messageInfo'>
